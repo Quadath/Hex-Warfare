@@ -122,6 +122,7 @@ class DualGrid
     {
         public Vector3 center;
         public Color color;
+        public bool isWater;
         public List<Vector3> corners = new List<Vector3>();
         public List<int> neighbors = new List<int>();
     }
@@ -129,8 +130,6 @@ class DualGrid
     public List<Cell> Generate(Vector3[] vertices, int[] triangles)
     {
         List<Triangle> tris = new List<Triangle>();
-        List<Color> colors = new List<Color>();
-        
 
         for (int i = 0; i < triangles.Length; i += 3)
         {
@@ -175,13 +174,15 @@ class DualGrid
             center /= cell.corners.Count;
             cell.center = center;
             //
+            
             SortCorners(cell.center, cell.corners);
 
-            cell.color = Random.ColorHSV();
+            cell.color = new Color(.25f, .2f, .2f);
 
             cells.Add(cell);
         }
-
+        
+        //Assigning heighbors to cells
         for (int i = 0; i < cells.Count; i++)
         {
             foreach (var ti in vToT[i])
@@ -190,6 +191,36 @@ class DualGrid
                 TryAdd(cells, i, t.a);
                 TryAdd(cells, i, t.b);
                 TryAdd(cells, i, t.c);
+            }
+        }
+        
+        foreach (var cell in  cells)
+        {
+            var threshold = .99f;
+            var water = Random.value >= threshold;
+            if (water)
+            {
+                cell.isWater = true;
+                cell.color = new Color(.51f, .72f, .94f);
+            }
+        }
+        foreach (var cell in  cells)
+        {
+            var isWaterInNeighborhood = false;
+            foreach (var n in cell.neighbors)
+            {
+                if (!cells[n].isWater) continue;
+                isWaterInNeighborhood = true;
+                Debug.Log("Water!!");
+            }
+            if  (!isWaterInNeighborhood) continue;
+
+            var threshold = .2f;
+            var water = Random.value >= threshold;
+            if (water)
+            {
+                cell.isWater = true;
+                cell.color = new Color(.51f, .72f, .94f);
             }
         }
 
