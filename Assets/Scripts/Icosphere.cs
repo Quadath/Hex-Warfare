@@ -27,6 +27,7 @@ void Start()
 {
     List<Vector3> vertices = new List<Vector3>();
     List<int> triangles = new List<int>();
+    
 
     float t = (1f + Mathf.Sqrt(5f)) / 2f;
 
@@ -98,7 +99,9 @@ void Start()
     }
 
     for (int i = 0; i < vertices.Count; i++)
+    {
         vertices[i] = vertices[i].normalized * radius;
+    }
 
     return (vertices.ToArray(), triangles.ToArray());
 }
@@ -118,6 +121,7 @@ class DualGrid
     public class Cell
     {
         public Vector3 center;
+        public Color color;
         public List<Vector3> corners = new List<Vector3>();
         public List<int> neighbors = new List<int>();
     }
@@ -125,6 +129,8 @@ class DualGrid
     public List<Cell> Generate(Vector3[] vertices, int[] triangles)
     {
         List<Triangle> tris = new List<Triangle>();
+        List<Color> colors = new List<Color>();
+        
 
         for (int i = 0; i < triangles.Length; i += 3)
         {
@@ -160,15 +166,18 @@ class DualGrid
 
             foreach (var ti in vToT[v])
                 cell.corners.Add(tris[ti].center * radius);
+            //move centers of cells to make hexagons 
             var center = new Vector3();
             foreach (var c in cell.corners)
             {
                 center += c;
             }
-
             center /= cell.corners.Count;
             cell.center = center;
+            //
             SortCorners(cell.center, cell.corners);
+
+            cell.color = Random.ColorHSV();
 
             cells.Add(cell);
         }
@@ -225,18 +234,25 @@ Mesh BuildMesh(List<DualGrid.Cell> cells)
 {
     List<Vector3> vertices = new List<Vector3>();
     List<int> triangles = new List<int>();
+    List<Color> colors = new List<Color>();
 
     foreach (var cell in cells)
     {
         int centerIndex = vertices.Count;
         vertices.Add(cell.center);
+        colors.Add(cell.color);
+        
 
         for (int i = 0; i < cell.corners.Count; i++)
         {
             int next = (i + 1) % cell.corners.Count;
 
             vertices.Add(cell.corners[i]);
+            colors.Add(cell.color);
+            
             vertices.Add(cell.corners[next]);
+            colors.Add(cell.color);
+            
 
             int a = centerIndex;
             int b = vertices.Count - 2;
@@ -245,12 +261,14 @@ Mesh BuildMesh(List<DualGrid.Cell> cells)
             triangles.Add(a);
             triangles.Add(b);
             triangles.Add(c);
+            
         }
     }
 
     Mesh mesh = new Mesh();
     mesh.vertices = vertices.ToArray();
     mesh.triangles = triangles.ToArray();
+    mesh.colors = colors.ToArray();
     mesh.RecalculateNormals();
 
     return mesh;
