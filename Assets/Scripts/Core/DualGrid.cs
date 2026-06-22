@@ -63,11 +63,6 @@ namespace Core
                 cell.Center = center;
 
                 cell.Corners = SortCorners(cell.Center, cell.Corners); //breaks here
-                
-
-                var col =  new ColorData(.25f, .2f, .2f, 1);
-                cell.Color = col;
-
                 cells.Add(cell);
             }
             
@@ -81,36 +76,6 @@ namespace Core
                     TryAdd(cells, i, t.b);
                     TryAdd(cells, i, t.c);
                 }
-            }
-            Random rnd = new Random();
-            foreach (var cell in  cells)
-            {
-                var threshold = 99;
-                var water = rnd.Next(0, 100) >= threshold;
-                if (water)
-                {
-                    cell.IsWater = true;
-                    var col =  new ColorData(.51f, .72f, .94f, 1);
-                    cell.Color = col;
-                }
-            }
-            foreach (var cell in  cells)
-            {
-                var isWaterInNeighborhood = false;
-                foreach (var n in cell.Neighbors)
-                {
-                    if (!cells[n].IsWater) continue;
-                    isWaterInNeighborhood = true;
-                }
-                if  (!isWaterInNeighborhood) continue;
-
-                var threshold = 20;
-                var water = rnd.Next(0, 100) >= threshold;
-                if (!water) continue;
-                cell.IsWater = true;
-                var col =  new ColorData(.51f, .72f, .94f, 1);
-                cell.Color = col;
-                
             }
 
             return cells;
@@ -144,6 +109,43 @@ namespace Core
                 return angleA.CompareTo(angleB);
             });
             return corners;
+        }
+
+        public static void GenerateWater(List<Cell> cells)
+        {
+            Random rnd = new Random();
+            foreach (var cell in  cells)
+            {
+                var col =  new ColorData(.25f, .2f, .2f, 1);
+                cell.Color = col;
+                var threshold = 99;
+                var water = rnd.Next(0, 100) >= threshold;
+                if (water)
+                {
+                    cell.IsWater = true;
+                    col =  new ColorData(.96f, .45f, .18f, 1);
+                    
+                    cell.Color = col;
+                }
+            }
+            foreach (var cell in  cells)
+            {
+                var isWaterInNeighborhood = false;
+                foreach (var n in cell.Neighbors)
+                {
+                    if (!cells[n].IsWater) continue;
+                    isWaterInNeighborhood = true;
+                }
+                if  (!isWaterInNeighborhood) continue;
+
+                var threshold = 20;
+                var water = rnd.Next(0, 100) >= threshold;
+                if (!water) continue;
+                cell.IsWater = true;
+                var col =  new ColorData(.96f, .45f, .18f, 1);
+                cell.Color = col;
+                
+            }
         }
     }
 }

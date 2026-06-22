@@ -15,8 +15,20 @@ namespace Systems
         void Start()
         {
             _planet.Generate(subdivisions, radius);
+            Draw();
+        }
+
+        private void Draw()
+        {
             var mesh = BuildMesh(_planet.Cells);
             GetComponent<MeshFilter>().mesh = mesh;
+            GetComponent<MeshCollider>().sharedMesh = mesh;
+        }
+
+        public void OnClicked(Vector3 clickPos)
+        {
+            _planet.OnClicked(Vector3Extensions.ToCore(clickPos));
+            Draw();
         }
         
         private static Mesh BuildMesh(List<Cell> cells)
@@ -60,5 +72,6 @@ namespace Systems
 
             return mesh;
         }
-    } }
+    } 
+}
 
