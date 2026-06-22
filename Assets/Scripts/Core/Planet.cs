@@ -67,8 +67,8 @@ namespace Core
                 foreach (var neighbor in current.Neighbors)
                 {
                     // skip blocked
-                    //if (!neighbor.IsWalkable)
-                        //continue;
+                    if (neighbor.IsWater)
+                        continue;
 
                     float tentativeG = gScore[current] + Cost(current, neighbor);
 

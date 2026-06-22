@@ -114,26 +114,22 @@ namespace Core
         public static void GenerateWater(List<Cell> cells)
         {
             Random rnd = new Random();
+            var col =  new ColorData(.25f, .2f, .2f, 1);
             foreach (var cell in  cells)
             {
-                var col =  new ColorData(.25f, .2f, .2f, 1);
                 cell.Color = col;
                 var threshold = 99;
                 var water = rnd.Next(0, 100) >= threshold;
-                if (water)
-                {
-                    cell.IsWater = true;
-                    col =  new ColorData(.96f, .45f, .18f, 1);
-                    
-                    cell.Color = col;
-                }
+                if (!water) continue;
+                cell.IsWater = true;
+                cell.Color =  new ColorData(.96f, .45f, .18f, 1);
             }
             foreach (var cell in  cells)
             {
                 var isWaterInNeighborhood = false;
                 foreach (var c in cell.Neighbors)
                 {
-                    if (c.IsWater) continue;
+                    if (!c.IsWater) continue;
                     isWaterInNeighborhood = true;
                 }
                 if  (!isWaterInNeighborhood) continue;
@@ -142,7 +138,7 @@ namespace Core
                 var water = rnd.Next(0, 100) >= threshold;
                 if (!water) continue;
                 cell.IsWater = true;
-                var col =  new ColorData(.96f, .45f, .18f, 1);
+                col =  new ColorData(.96f, .45f, .18f, 1);
                 cell.Color = col;
                 
             }
