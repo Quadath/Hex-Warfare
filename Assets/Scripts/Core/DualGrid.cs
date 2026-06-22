@@ -72,22 +72,22 @@ namespace Core
                 foreach (var ti in vToT[i])
                 {
                     var t = tris[ti];
-                    TryAdd(cells, i, t.a);
-                    TryAdd(cells, i, t.b);
-                    TryAdd(cells, i, t.c);
+                    TryAdd(cells, cells[i], cells[t.a]);
+                    TryAdd(cells, cells[i], cells[t.b]);
+                    TryAdd(cells, cells[i], cells[t.c]);
                 }
             }
 
             return cells;
         }
 
-        static void TryAdd(List<Cell> cells, int self, int other)
+        private static void TryAdd(List<Cell> cells, Cell self, Cell other)
         {
-            if (self != other && !cells[self].Neighbors.Contains(other))
-                cells[self].Neighbors.Add(other);
+            if (self != other && !self.Neighbors.Contains(other))
+                self.Neighbors.Add(other);
         }
 
-        static List<Vector3Data> SortCorners(Vector3Data center, List<Vector3Data> corners)
+        private static List<Vector3Data> SortCorners(Vector3Data center, List<Vector3Data> corners)
         {
             Vector3Data normal = center.Normalized;
 
@@ -131,9 +131,9 @@ namespace Core
             foreach (var cell in  cells)
             {
                 var isWaterInNeighborhood = false;
-                foreach (var n in cell.Neighbors)
+                foreach (var c in cell.Neighbors)
                 {
-                    if (!cells[n].IsWater) continue;
+                    if (c.IsWater) continue;
                     isWaterInNeighborhood = true;
                 }
                 if  (!isWaterInNeighborhood) continue;

@@ -9,6 +9,6 @@ namespace Core
         public ColorData Color;
         public bool IsWater;
         public List<Vector3Data> Corners = new List<Vector3Data>();
-        public List<int> Neighbors = new List<int>();
+        public List<Cell> Neighbors = new List<Cell>();
     }
 }

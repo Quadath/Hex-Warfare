@@ -11,6 +11,10 @@ namespace Systems
         public float radius = 1f;
 
         private Planet _planet = new Planet();
+        private int _counter = -1;
+
+        private Cell _startCell;
+        private Cell _endCell;
 
         void Start()
         {
@@ -27,7 +31,24 @@ namespace Systems
 
         public void OnClicked(Vector3 clickPos)
         {
-            _planet.OnClicked(Vector3Extensions.ToCore(clickPos));
+            Cell c = _planet.OnClicked(Vector3Extensions.ToCore(clickPos));
+            if (_counter < 0)
+            {
+                _startCell = c;
+            }
+            else
+            {
+                _endCell = c;
+            }
+            List<Cell> path = (_startCell != null && _endCell != null) ? Planet.FindPath(_startCell, _endCell, radius) : null;
+            if (path is { Count: > 0 })
+            {
+                foreach(Cell cell in path)
+                {
+                    Planet.HighlightCell(cell);
+                }
+            }
+            _counter *= -1;
             Draw();
         }
         
