@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core;
 using UnityEngine;
@@ -10,8 +11,7 @@ namespace Systems
         public int subdivisions = 2;
         public float radius = 1f;
 
-        private Planet _planet = new Planet();
-        private int _counter = -1;
+        public Planet _planet = new Planet();
 
         private Cell _startCell;
         private Cell _endCell;
@@ -29,27 +29,19 @@ namespace Systems
             GetComponent<MeshCollider>().sharedMesh = mesh;
         }
 
-        public void OnClicked(Vector3 clickPos)
+        public Cell OnClicked(Vector3 clickPos)
         {
             Cell c = _planet.OnClicked(Vector3Extensions.ToCore(clickPos));
-            if (_counter < 0)
-            {
-                _startCell = c;
-            }
-            else
-            {
-                _endCell = c;
-            }
-            List<Cell> path = (_startCell != null && _endCell != null) ? Planet.FindPath(_startCell, _endCell, radius) : null;
-            if (path is { Count: > 0 })
-            {
-                foreach(Cell cell in path)
-                {
-                    Planet.HighlightCell(cell);
-                }
-            }
-            _counter *= -1;
-            Draw();
+            //List<Cell> path = (_startCell != null && _endCell != null) ? Planet.FindPath(_startCell, _endCell, radius) : null;
+            // if (path is { Count: > 0 })
+            // {
+            //     foreach(Cell cell in path)
+            //     {
+            //         Planet.HighlightCell(cell);
+            //     }
+            // }
+            //Draw();
+            return c;
         }
         
         private static Mesh BuildMesh(List<Cell> cells)
@@ -92,6 +84,21 @@ namespace Systems
             mesh.RecalculateNormals();
 
             return mesh;
+        }
+
+        private void OnDrawGizmos()
+        {
+            if( _planet.Cells == null ) return;
+            foreach (Cell cell in _planet.Cells)
+            {
+                Gizmos.color = Color.blue;
+                Gizmos.DrawSphere(Vector3Extensions.ToUnity(cell.Center), 0.03f);
+                Gizmos.color = Color.red;
+                foreach (Vector3Data corner in cell.Corners)
+                {
+                    Gizmos.DrawSphere(Vector3Extensions.ToUnity(corner), 0.02f);
+                }
+            }
         }
     } 
 }

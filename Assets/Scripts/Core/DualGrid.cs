@@ -45,8 +45,10 @@ namespace Core
 
             for (int v = 0; v < vertices.Length; v++)
             {
-                Cell cell = new Cell();
-                cell.Center = vertices[v];
+                Cell cell = new Cell
+                {
+                    Center = vertices[v]
+                };
 
                 foreach (var ti in vToT[v])
                 {

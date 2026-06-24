@@ -18,11 +18,11 @@ namespace Core
         public Cell OnClicked(Vector3Data clickPos)
         {
             Cell cell = FindClosestCell(clickPos);
-            HighlightCell(cell);
+            //HighlightCell(cell);
             return cell;
         }
 
-        private Cell FindClosestCell(Vector3Data position)
+        public Cell FindClosestCell(Vector3Data position)
         {
             Cell cell = new Cell();
             float closest = float.MaxValue;
@@ -39,7 +39,7 @@ namespace Core
             return cell;
         }
 
-        //PATHFINDING
+        //PATHFINDING (SHOULD BE SEPARATED)
         public static List<Cell> FindPath(Cell start, Cell goal, float sphereRadius)
         {
             var openSet = new SimplePriorityQueue<Cell>();
