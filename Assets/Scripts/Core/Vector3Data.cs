@@ -42,6 +42,13 @@ namespace Core
             Y /= mag;
             Z /= mag;
         }
+
+        public void Translate(Vector3Data translation)
+        {
+            X += translation.X;
+            Y += translation.Y;
+            Z += translation.Z;
+        }
         
         public static float Dot(Vector3Data a, Vector3Data b)
         {

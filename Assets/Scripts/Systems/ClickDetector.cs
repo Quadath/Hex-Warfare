@@ -31,7 +31,7 @@ namespace Systems
                 if (Physics.Raycast(ray, out hit))
                 {
                     Cell target = planetView.OnClicked(hit.point);
-                    List<Cell> path = Planet.FindPath(_unit.Cell == null ? 
+                    List<Cell> path = AStar.FindPath(_unit.Cell == null ? 
                         planetView._planet.FindClosestCell(Vector3Extensions.ToCore(Unit.transform.position)) : _unit.Cell, target, 1);
                     if (path == null) return;
                     _unit.SetPath(path);

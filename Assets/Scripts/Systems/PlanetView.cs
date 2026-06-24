@@ -31,7 +31,7 @@ namespace Systems
 
         public Cell OnClicked(Vector3 clickPos)
         {
-            Cell c = _planet.OnClicked(Vector3Extensions.ToCore(clickPos));
+            Cell c = _planet.FindClosestCell(Vector3Extensions.ToCore(clickPos));
             //List<Cell> path = (_startCell != null && _endCell != null) ? Planet.FindPath(_startCell, _endCell, radius) : null;
             // if (path is { Count: > 0 })
             // {
