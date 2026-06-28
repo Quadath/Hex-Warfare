@@ -60,7 +60,7 @@ namespace Systems
                 for (int i = 0; i < cell.Corners.Count; i++)
                 {
                     int next = (i + 1) % cell.Corners.Count;
-
+                    
                     vertices.Add(Vector3Extensions.ToUnity(cell.Corners[i]));
                     colors.Add(new Color(cell.Color.R, cell.Color.G, cell.Color.B, cell.Color.A)); //fix 
                     
