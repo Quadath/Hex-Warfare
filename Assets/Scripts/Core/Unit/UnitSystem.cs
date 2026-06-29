@@ -2,19 +2,19 @@ using System.Collections.Generic;
 
 namespace Core
 {
-    internal abstract class UnitSystem
+    internal abstract class UnitSystem<TBehaviour>
     {
-        private List<UnitBehaviour> _instances;
-        public abstract void Tick(float deltaTime);
+        protected Dictionary<Unit, TBehaviour> _instances = new Dictionary<Unit, TBehaviour>();
+        internal abstract void Tick(float deltaTime);
 
-        public virtual void Register(UnitBehaviour b)
+        public virtual void Register(Unit unit, TBehaviour b)
         {
-            _instances.Add(b);
+            _instances.Add(unit, b);
         }
 
-        public virtual void Unregister(UnitBehaviour b)
+        public virtual void Unregister(Unit unit)
         {
-            _instances.Remove(b);
+            _instances.Remove(unit);
         }
     }
 }

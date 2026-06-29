@@ -707,6 +707,7 @@ GameObject:
   - component: {fileID: 1986057972}
   - component: {fileID: 1986057971}
   - component: {fileID: 1986057969}
+  - component: {fileID: 1986057973}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -757,6 +758,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Systems::Systems.UnitFactoriesContainer
   units:
   - {fileID: 11400000, guid: 25e99bbeded8a44f3aa49e19c57b3d6f, type: 2}
+  planetView: {fileID: 1250522719}
+  unitViewFactory: {fileID: 1986057973}
 --- !u!114 &1986057972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -769,6 +772,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c60f744209fee45a4b918c658f514f5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Systems::Systems.GameBootstrap
+  Systems:
+  - {fileID: 1250522719}
+  - {fileID: 1986057971}
+--- !u!114 &1986057973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986057968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba273aae18c499a8a2b803849d75b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Systems::Systems.UnitViewFactory
 --- !u!1 &2121570113
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Shared;
 
 namespace Core
 {
     public static class AStar
     {
-        public static List<Cell> FindPath(Cell start, Cell goal, float sphereRadius)
+        public static List<Cell> FindPath(Cell start, Cell goal, float sphereRadius = 1)
         {
             var openSet = new SimplePriorityQueue<Cell>();
             openSet.Enqueue(start, 0);

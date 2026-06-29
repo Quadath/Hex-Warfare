@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Core;
+using Shared;
 
-namespace Systems
+namespace Utils
 {
+    //used to convert core structs to Unity structs and in backwards
     public static class Vector3Extensions
     {
         public static Vector3 ToUnity(Vector3Data v) =>

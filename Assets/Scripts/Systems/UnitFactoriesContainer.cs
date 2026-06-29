@@ -7,20 +7,35 @@ using SO;
 
 namespace Systems
 {
-    public class UnitFactoriesContainer : MonoBehaviour
+    public class UnitFactoriesContainer : UnitySystem
     {
         [SerializeField] private List<UnitDataSO> units;
+
+        [SerializeField] private PlanetView planetView;
+        [SerializeField] private UnitViewFactory unitViewFactory;
+        
         private Game _game;
+
+        public override void Init(Game game)
+        {
+            if (GameBootstrap.Instance.Game == null) throw new NullReferenceException();
+            Dictionary<UnitTypes, Func<UnitData>> factories =
+                units.ToDictionary(k => k.UnitType, v => v.UnitDataFactory());
+            game.UnitCommands.ProvideFactories(factories);
+            Unit u = game.UnitCommands.Spawn(UnitTypes.Tank,
+                planetView.OnClicked(new Vector3(0, 0, -3)),
+                OnCreated); //hard coded);
+            GameBootstrap.Instance.Game.UnitCommands.SelectUnit(u);
+        }
 
         private void Start()
         {
-            if (GameBootstrap.Instance.Game == null) throw new NullReferenceException();
-            _game = GameBootstrap.Instance.Game;
-            Dictionary<UnitTypes, Func<UnitData>> factories = units.ToDictionary(
-                u => u.UnitType,
-                u => u.UnitDataFactory());
-            _game.UnitCommands.ProvideFactories(factories);
-            _game.UnitCommands.Spawn(UnitTypes.Tank); //hard coded
+            
+        }
+
+        private void OnCreated(Unit unit)
+        {
+            unitViewFactory.CreateView(units.Last(so => so.UnitType == unit.Type), unit);
         }
     }
 }

@@ -1,27 +1,28 @@
 using System;
 using System.Collections.Generic;
+using Shared;
 using Core;
+using Utils;
 using UnityEngine;
 
 namespace Systems
 {
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
-    public class PlanetView : MonoBehaviour
+    public class PlanetView : UnitySystem
     {
         public int subdivisions = 2;
-        public float radius = 1f;
+        private float radius = 1f;
 
-        public Planet _planet = new Planet();
+        private Planet _planet;
 
         private Cell _startCell;
         private Cell _endCell;
 
-        void Start()
+        public override void Init(Game game)
         {
-            _planet.Generate(subdivisions, radius);
+            _planet = game.WorldCommands.GeneratePlanet(subdivisions, radius);
             Draw();
         }
-
         private void Draw()
         {
             var mesh = BuildMesh(_planet.Cells);
@@ -88,15 +89,16 @@ namespace Systems
 
         private void OnDrawGizmos()
         {
+            if (_planet == null) return;
             if( _planet.Cells == null ) return;
             foreach (Cell cell in _planet.Cells)
             {
                 Gizmos.color = Color.blue;
-                Gizmos.DrawSphere(Vector3Extensions.ToUnity(cell.Center), 0.03f);
+                Gizmos.DrawSphere(Vector3Extensions.ToUnity(cell.Center), 0.008f);
                 Gizmos.color = Color.red;
                 foreach (Vector3Data corner in cell.Corners)
                 {
-                    Gizmos.DrawSphere(Vector3Extensions.ToUnity(corner), 0.02f);
+                    Gizmos.DrawSphere(Vector3Extensions.ToUnity(corner), 0.004f);
                 }
             }
         }

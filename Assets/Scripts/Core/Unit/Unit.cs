@@ -1,15 +1,24 @@
 using System;
 using System.Collections.Generic;
+using Shared;
 using JetBrains.Annotations;
 
 namespace Core
 {
     public class Unit
     {
-        [CanBeNull] public List<Cell> Path {get; private set;}
         public Cell Cell { get; private set; }
-        private Vector3Data _position;
-        private event Action<Unit> OnDeath;
+        public UnitTypes Type { get; }
+        public Vector3Data Position { get; internal set; }
+        private event Action<Unit> OnDeath; 
+        [CanBeNull] public List<Cell> Path {get; private set;}
+
+        public Unit(UnitTypes type, Cell spawn)
+        {
+            Type = type;
+            Cell = spawn;
+            Position = spawn.Center;
+        }
 
         public void SetPath(List<Cell> path)
         {
@@ -25,12 +34,12 @@ namespace Core
             OnDeath -= listener;
         }
 
-        public void SetCell(Cell cell)
+        internal void SetCell(Cell cell)
         {
             Cell = cell;
         }
 
-        public void StopMoving()
+        internal void StopMoving()
         {
             Path = null;
         }

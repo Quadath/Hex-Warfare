@@ -6,28 +6,39 @@ namespace Core
     internal sealed class UnitSystemsContainer
     {
         internal MovementSystem MovementSystem { get; private set; }
-        private Dictionary<Type, Action<UnitBehaviour>> _registry = new();
+        private Dictionary<Type, Action<Unit, UnitBehaviour>> _registry = new();
 
         internal UnitSystemsContainer()
         {
             MovementSystem = new MovementSystem();
-            _registry[typeof(MovementBehaviour)] = behaviour =>
-            {
-                MovementSystem.Register(behaviour);
-            };
+            RegisterSystem(MovementSystem);
         }
+        
 
-        public void Register(UnitBehaviour behaviour)
+        internal void Tick(float deltaTime)
         {
-            Get(typeof(MovementBehaviour))(behaviour);
+            MovementSystem.Tick(deltaTime);
+        }
+        
+        internal void Register(Unit unit, UnitBehaviour behaviour)
+        {
+            //Register the behaviour in the corresponding system
+            Get(behaviour.GetType())(unit, behaviour);
         }
 
-        public void Unregister(UnitBehaviour behaviour)
+        internal void Unregister(UnitBehaviour behaviour)
         {
             throw new NotImplementedException();
         }
+        //generic helper
+        private void RegisterSystem<TBehaviour>(UnitSystem<TBehaviour> system)
+            where TBehaviour : UnitBehaviour
+        {
+            _registry[typeof(TBehaviour)] =
+                (unit, behaviour) => system.Register(unit, (TBehaviour)behaviour);
+        }
         
-        private Action<UnitBehaviour> Get(Type T) => 
+        private Action<Unit, UnitBehaviour> Get(Type T) => 
             _registry.TryGetValue(T, out var service) ? service : throw new Exception($"Registerer for {T} not found!");
     }
 }

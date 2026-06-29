@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core;
+using Utils;
 using UnityEngine;
 
 
@@ -15,18 +16,13 @@ namespace SO
         public UnitTypes UnitType => unitType;
         [SerializeField] 
         List<UnitBehaviourSO> behaviours;
-        [SerializeField] GameObject prefab;
+        [field: SerializeField]
+        public GameObject Prefab { get; private set; }
 
         public Func<UnitData> UnitDataFactory()
         {
-            return () => new UnitData(name, unitType, OnCreated, 
+            return () => new UnitData(name, unitType, 
                 behaviours.Select(so => so.UnitBehaviourFactory()).ToList());
-        }
-
-        private void OnCreated(Unit unit)
-        {
-            Debug.Log("Unit created!");
-            Instantiate(prefab, Vector3.zero, Quaternion.identity);
         }
     }
 }

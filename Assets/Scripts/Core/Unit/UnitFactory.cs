@@ -9,7 +9,7 @@ namespace Core
         private UnitSystemsContainer _unitSystems;
         private UnitManager _unitManager;
 
-        [CanBeNull] private Dictionary<UnitTypes, Func<UnitData>> _factories;
+        [CanBeNull] private Dictionary<UnitTypes, Func<UnitData>> _factories; 
 
         internal UnitFactory(UnitSystemsContainer unitSystems, UnitManager unitManager)
         {
@@ -24,17 +24,18 @@ namespace Core
             _factories ??= factories;
         }
 
-        internal Unit Spawn(UnitTypes type)
+        internal Unit Spawn(UnitTypes type, Cell spawn, Action<Unit> onCreated = null)
         {
             if(_factories == null) 
                 throw new NullReferenceException("Factories are not initialized.");
             UnitData data = _factories[type]();
-            Unit unit = new();
+            Unit unit = new(type, spawn);
             foreach (var behaviourFactory in data.BehaviourFactories)
             {
-                _unitSystems.Register(behaviourFactory(unit, null));
+                _unitSystems.Register(unit, behaviourFactory(unit, null));
             }
-            data.OnCreated?.Invoke(unit);
+            _unitManager.RegisterUnit(unit);
+            onCreated?.Invoke(unit);
             return unit;
         }
     }

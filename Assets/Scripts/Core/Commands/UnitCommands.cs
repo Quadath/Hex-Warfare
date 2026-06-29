@@ -3,11 +3,14 @@ using System.Collections.Generic;
 
 namespace Core.Commands
 {
+    /*
+     * This class and workspace work as a transition layer between Core and Unity. 
+     */
     public class UnitCommands
     {
-        private UnitFactory _unitFactory;
-        private MovementSystem _movementSystem;
-        private UnitManager _unitManager;
+        private readonly UnitFactory _unitFactory;
+        private readonly MovementSystem _movementSystem;
+        private readonly UnitManager _unitManager;
 
         internal UnitCommands(UnitFactory factory, UnitManager manager, MovementSystem movementSystem)
         {
@@ -21,14 +24,23 @@ namespace Core.Commands
             _unitFactory.SetFactories(factories);
         }
         
-        public Unit Spawn(UnitTypes type)
+        public Unit Spawn(UnitTypes type, Cell spawn, Action<Unit> onUnitSpawned =  null)
         {
-            return _unitFactory.Spawn(type);
+            Unit u = _unitFactory.Spawn(type, spawn);
+            onUnitSpawned?.Invoke(u);
+            return u;
         }
+        
+        public void SelectUnit(Unit unit) => _unitManager.SelectUnit(unit);
 
-        public void MoveTo(Cell target)
+        public void MoveTo(Unit unit, Cell target) => _movementSystem.SetTarget(unit, target);
+
+        public void MoveSelected(Cell target)
         {
-            
+            foreach (Unit u in _unitManager._selectedUnits)
+            {
+                _movementSystem.SetTarget(u, target);
+            }
         }
     }
 }
