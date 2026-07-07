@@ -28,11 +28,6 @@ namespace Systems
             GameBootstrap.Instance.Game.UnitCommands.SelectUnit(u);
         }
 
-        private void Start()
-        {
-            
-        }
-
         private void OnCreated(Unit unit)
         {
             unitViewFactory.CreateView(units.Last(so => so.UnitType == unit.Type), unit);

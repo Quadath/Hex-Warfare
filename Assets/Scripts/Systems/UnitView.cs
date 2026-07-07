@@ -24,13 +24,13 @@ namespace Systems
             if(Unit == null) return;
             transform.position = Vector3Extensions.ToUnity(Unit.Position);
             Vector3 up = transform.position.normalized;
-            Vector3 dir = (transform.position - previousPosition).normalized; //rework
-            // Quaternion targetRotation = Quaternion.LookRotation(dir, up);
-            // transform.rotation = Quaternion.Slerp(
-            //     transform.rotation,
-            //     targetRotation,
-            //     2f * Time.deltaTime
-            // );
+            Vector3 dir = Vector3Extensions.ToUnity(Unit.ToLookAt - Unit.Position); 
+            Quaternion targetRotation = Quaternion.LookRotation(dir, up);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                2f * Time.deltaTime
+            );
             previousPosition = transform.position == previousPosition ? previousPosition : transform.position;
         }
 

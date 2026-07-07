@@ -3,9 +3,14 @@ using Shared;
 
 namespace Core
 {
-    public static class DebugDraw
+    public static class DebugUtils
     {
         public static event Action<DebugCommands.DebugCommand>? Command;
+
+        public static void Message(string source, string text, int? instanceId = null)
+        {
+            Command?.Invoke(new DebugCommands.Message(source, text, instanceId));
+        }
 
         public static void Line(Vector3Data start, Vector3Data end)
         {

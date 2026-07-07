@@ -16,11 +16,12 @@ namespace Core
                 
                 behaviour.Path ??= behaviour.Path = AStar.FindPath(unit.Cell, behaviour.TargetCell);
                 if (behaviour.Path == null) continue;
-                DebugDraw.Sphere(unit.Position, 0.005f);
+                DebugUtils.Sphere(unit.Position, 0.005f);
                 if (behaviour.Path != null && behaviour.CellIndex < behaviour.Path.Count)
                 {
                     Cell targetCell = behaviour.Path[behaviour.CellIndex];
-                    DebugDraw.Line(unit.Position, targetCell.Center);
+                    unit.ToLookAt = targetCell.Center;
+                    DebugUtils.Line(unit.Position, targetCell.Center);
                         
                     if ((unit.Position - targetCell.Center).SqrMagnitude < 0.0001f)
                     {
@@ -55,8 +56,10 @@ namespace Core
 
         internal void SetTarget(Unit unit, Cell targetCell)
         {
+            DebugUtils.Message("Core|MovementSystem", "New target set", unit.ViewInstanceId);
             MovementBehaviour b = _instances.GetValueOrDefault(unit);
             if (b == null) return;
+            unit.ToLookAt = targetCell.Center;
             b.TargetCell = targetCell;
         }
     }

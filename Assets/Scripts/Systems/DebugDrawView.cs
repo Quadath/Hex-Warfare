@@ -11,12 +11,12 @@ namespace Systems
 
         private void OnEnable()
         {
-            DebugDraw.Command += ReceiveCommand;
+            DebugUtils.Command += ReceiveCommand;
         }
 
         private void OnDisable()
         {
-            DebugDraw.Command -= ReceiveCommand;
+            DebugUtils.Command -= ReceiveCommand;
         }
 
         private void ReceiveCommand(DebugCommands.DebugCommand command)
@@ -36,6 +36,9 @@ namespace Systems
         {
             switch (command)
             {
+                case DebugCommands.Message msg: 
+                    Debug.Log($"[<color=green>{msg.source}</color>] |{msg.instanceId}| {msg.text}");
+                    break;
                 case DebugCommands.LineCommand line:
                     Gizmos.DrawLine(
                         Vector3Extensions.ToUnity(line.start),
