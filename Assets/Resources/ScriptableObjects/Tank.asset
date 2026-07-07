@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: ScriptableObjects::SO.UnitDataSO
   name: Tank
   unitType: 0
-  behaviours: []
-  prefab: {fileID: 4135458577692091029, guid: c69eb29f2d7be4ca5aa8a7f12518051f, type: 3}
+  behaviours:
+  - {fileID: 11400000, guid: 4dca3321e0e55460dac8845c6f4ea3f0, type: 2}
+  <Prefab>k__BackingField: {fileID: 8015442352750793990, guid: e1db6210824694097b33bf7e67f09b07, type: 3}

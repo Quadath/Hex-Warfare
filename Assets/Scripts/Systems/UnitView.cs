@@ -9,7 +9,7 @@ namespace Systems
 {
     public class UnitView : MonoBehaviour
     {
-        public Unit Unit { get; private set;}
+        private Unit Unit { get; set;}
         
 
         internal void SetUnit(Unit unit)
@@ -19,19 +19,19 @@ namespace Systems
         }
 
         private Vector3 previousPosition; //rework
-        private void Update()
+        private void FixedUpdate()
         {
             if(Unit == null) return;
             transform.position = Vector3Extensions.ToUnity(Unit.Position);
-            Vector3 targetPos = transform.position + (transform.position - previousPosition).normalized; //rework
             Vector3 up = transform.position.normalized;
-            Quaternion targetRotation = Quaternion.LookRotation(targetPos, up);
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRotation,
-                2f * Time.deltaTime
-            );
-            previousPosition = transform.position;
+            Vector3 dir = (transform.position - previousPosition).normalized; //rework
+            // Quaternion targetRotation = Quaternion.LookRotation(dir, up);
+            // transform.rotation = Quaternion.Slerp(
+            //     transform.rotation,
+            //     targetRotation,
+            //     2f * Time.deltaTime
+            // );
+            previousPosition = transform.position == previousPosition ? previousPosition : transform.position;
         }
 
         // IEnumerator Move()

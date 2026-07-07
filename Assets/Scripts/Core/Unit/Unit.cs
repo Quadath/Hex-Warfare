@@ -10,6 +10,7 @@ namespace Core
         public Cell Cell { get; private set; }
         public UnitTypes Type { get; }
         public Vector3Data Position { get; internal set; }
+        public Vector3Data TargetPosition { get; internal set; } //for UnityView, not Core!
         private event Action<Unit> OnDeath; 
         [CanBeNull] public List<Cell> Path {get; private set;}
 

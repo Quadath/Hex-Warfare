@@ -16,11 +16,13 @@ namespace Core
                 
                 behaviour.Path ??= behaviour.Path = AStar.FindPath(unit.Cell, behaviour.TargetCell);
                 if (behaviour.Path == null) continue;
+                DebugDraw.Sphere(unit.Position, 0.005f);
                 if (behaviour.Path != null && behaviour.CellIndex < behaviour.Path.Count)
                 {
                     Cell targetCell = behaviour.Path[behaviour.CellIndex];
+                    DebugDraw.Line(unit.Position, targetCell.Center);
                         
-                    if ((unit.Position - targetCell.Center).SqrMagnitude < 0.01f)
+                    if ((unit.Position - targetCell.Center).SqrMagnitude < 0.0001f)
                     {
                         behaviour.CellIndex++;
                         unit.SetCell(targetCell);

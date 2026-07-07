@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16900bbe8c054e2f8495f256eab19916, type: 3}
   m_Name: MovementBehaviour
   m_EditorClassIdentifier: ScriptableObjects::SO.MovementBehaviourSO
-  moveSpeed: 0
+  moveSpeed: 0.04
