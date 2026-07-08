@@ -46,26 +46,23 @@ namespace Core
 
             for (int v = 0; v < vertices.Length; v++)
             {
-                Cell cell = new Cell
-                {
-                    Center = vertices[v]
-                };
+                List<Vector3Data> corners = new List<Vector3Data>();
 
                 foreach (var ti in vToT[v])
                 {
-                    cell.Corners.Add(tris[ti].center * radius);
+                    corners.Add(tris[ti].center * radius);
                 }
                 
                 //move centers of cells to make hexagons (pull center inside)
                 var center = new Vector3Data();
-                foreach (var c in cell.Corners)
+                foreach (var c in corners)
                 {
                     center += c;
                 }
-                center /= cell.Corners.Count;
-                cell.Center = center;
+                center /= corners.Count;
+                corners = SortCorners(center, corners); 
+                Cell cell = new Cell(center, corners);
 
-                cell.Corners = SortCorners(cell.Center, cell.Corners); //breaks here
                 cells.Add(cell);
             }
             
@@ -117,33 +114,44 @@ namespace Core
         public static void GenerateWater(List<Cell> cells)
         {
             Random rnd = new Random();
-            var col =  new ColorData(.25f, .2f, .2f, 1);
+            var groundColor =  new ColorData(.25f, .2f, .2f, 1);
+            var waterColor =  new ColorData(.96f, .45f, .18f, 1);
             foreach (var cell in  cells)
             {
-                cell.Color = col;
                 var threshold = 99;
                 var water = rnd.Next(0, 100) >= threshold;
                 if (!water) continue;
                 cell.IsWater = true;
-                cell.Color =  new ColorData(.96f, .45f, .18f, 1);
             }
             foreach (var cell in  cells)
             {
+                if (cell.IsWater)
+                {
+                    cell.SetColor(waterColor);
+                    continue;
+                }
                 var isWaterInNeighborhood = false;
                 foreach (var c in cell.Neighbors)
                 {
                     if (!c.IsWater) continue;
                     isWaterInNeighborhood = true;
+                    break;
                 }
-                if  (!isWaterInNeighborhood) continue;
+                if  (!isWaterInNeighborhood)
+                {
+                    cell.SetColor(groundColor);
+                    continue;
+                }
 
                 var threshold = 20;
                 var water = rnd.Next(0, 100) >= threshold;
-                if (!water) continue;
+                if (!water)
+                {
+                    cell.SetColor(groundColor);
+                    continue;   
+                }
                 cell.IsWater = true;
-                col =  new ColorData(.96f, .45f, .18f, 1);
-                cell.Color = col;
-                
+                cell.SetColor(waterColor);
             }
         }
     }

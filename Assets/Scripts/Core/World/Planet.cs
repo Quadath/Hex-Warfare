@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using Shared;
 
 namespace Core
@@ -15,10 +16,10 @@ namespace Core
             Cells = DualGrid.Generate(vertices, triangles, radius);
             DualGrid.GenerateWater(Cells);
         }
-
+        
         public Cell FindClosestCell(Vector3Data position)
         {
-            Cell cell = new Cell();
+            Cell cell = null;
             float closest = float.MaxValue;
 
             foreach (Cell c in Cells)
@@ -35,7 +36,7 @@ namespace Core
         
         public static void HighlightCell(Cell cell)
         {
-            cell.Color = new ColorData(1, 0, 0, 0);
+            cell.Highlight();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Systems
             _planet = game.WorldCommands.GeneratePlanet(subdivisions, radius);
             Draw();
         }
-        private void Draw()
+        public void Draw()
         {
             var mesh = BuildMesh(_planet.Cells);
             GetComponent<MeshFilter>().mesh = mesh;
@@ -45,6 +45,8 @@ namespace Systems
             return c;
         }
         
+        //private static Color[] _colors = new Color[6] { Color.red, Color.green, Color.blue, Color.yellow, Color.purple, Color.aquamarine };
+        
         private static Mesh BuildMesh(List<Cell> cells)
         {
             List<Vector3> vertices = new List<Vector3>();
@@ -55,7 +57,7 @@ namespace Systems
             {
                 int centerIndex = vertices.Count;
                 vertices.Add(Vector3Extensions.ToUnity(cell.Center));
-                colors.Add(new Color(cell.Color.R, cell.Color.G, cell.Color.B, cell.Color.A)); //fix
+                colors.Add(ColorDataExtensions.ToUnity(cell.Color)); 
                 
 
                 for (int i = 0; i < cell.Corners.Count; i++)
@@ -63,10 +65,12 @@ namespace Systems
                     int next = (i + 1) % cell.Corners.Count;
                     
                     vertices.Add(Vector3Extensions.ToUnity(cell.Corners[i]));
-                    colors.Add(new Color(cell.Color.R, cell.Color.G, cell.Color.B, cell.Color.A)); //fix 
+                    //colors.Add(new Color(cell.Color.R, cell.Color.G, cell.Color.B, cell.Color.A)); //fix 
+                    colors.Add(ColorDataExtensions.ToUnity(cell.Sectors[i].Color)); 
                     
                     vertices.Add(Vector3Extensions.ToUnity(cell.Corners[next]));
-                    colors.Add(new Color(cell.Color.R, cell.Color.G, cell.Color.B, cell.Color.A)); //fix
+                    //colors.Add(new Color(cell.Color.R, cell.Color.G, cell.Color.B, cell.Color.A)); //fix
+                    colors.Add(ColorDataExtensions.ToUnity(cell.Sectors[i].Color)); 
                     
                     int a = centerIndex;
                     int b = vertices.Count - 2;

@@ -14,5 +14,10 @@ namespace Core
             B = b;
             A = a;
         }
+
+        public static ColorData operator *(ColorData a, float m)
+        {
+            return new ColorData(a.R * m, a.G * m, a.B * m, a.A * m);
+        }
     }
 }

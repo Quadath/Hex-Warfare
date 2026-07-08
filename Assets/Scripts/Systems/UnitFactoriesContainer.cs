@@ -23,7 +23,7 @@ namespace Systems
                 units.ToDictionary(k => k.UnitType, v => v.UnitDataFactory());
             game.UnitCommands.ProvideFactories(factories);
             Unit u = game.UnitCommands.Spawn(UnitTypes.Tank,
-                planetView.OnClicked(new Vector3(0, 0, -3)),
+                planetView.OnClicked(new Vector3(0, 0, -3)), //FIX
                 OnCreated); //hard coded);
             GameBootstrap.Instance.Game.UnitCommands.SelectUnit(u);
         }

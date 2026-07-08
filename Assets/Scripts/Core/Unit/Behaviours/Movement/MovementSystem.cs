@@ -20,7 +20,8 @@ namespace Core
                 if (behaviour.Path != null && behaviour.CellIndex < behaviour.Path.Count)
                 {
                     Cell targetCell = behaviour.Path[behaviour.CellIndex];
-                    unit.ToLookAt = targetCell.Center;
+                    //UnitView references this
+                    unit.ToLookAt = targetCell.Center; 
                     DebugUtils.Line(unit.Position, targetCell.Center);
                         
                     if ((unit.Position - targetCell.Center).SqrMagnitude < 0.0001f)
