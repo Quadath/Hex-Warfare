@@ -568,11 +568,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1986057970}
   - component: {fileID: 1986057972}
-  - component: {fileID: 1986057971}
-  - component: {fileID: 1986057969}
   - component: {fileID: 1986057976}
   - component: {fileID: 1986057975}
-  - component: {fileID: 1986057973}
+  - component: {fileID: 1986057969}
   - component: {fileID: 1986057974}
   m_Layer: 0
   m_Name: Systems
@@ -609,22 +607,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1986057971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1986057968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1dc34f40904345739535f08abc697a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Systems::Systems.UnitFactoriesContainer
-  units:
-  - {fileID: 11400000, guid: 25e99bbeded8a44f3aa49e19c57b3d6f, type: 2}
-  planetView: {fileID: 1250522719}
-  unitViewFactory: {fileID: 1986057973}
 --- !u!114 &1986057972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,18 +622,6 @@ MonoBehaviour:
   Systems:
   - {fileID: 1250522719}
   - {fileID: 1986057976}
---- !u!114 &1986057973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1986057968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dba273aae18c499a8a2b803849d75b65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Systems::Systems.UnitViewFactory
 --- !u!114 &1986057974
 MonoBehaviour:
   m_ObjectHideFlags: 0

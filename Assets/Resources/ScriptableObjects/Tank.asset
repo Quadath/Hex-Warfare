@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc0d7736e6eb44cdc995330247dc6931, type: 3}
+  m_Script: {fileID: 11500000, guid: 26d65b4247254ad8adad1902c976ed90, type: 3}
   m_Name: Tank
-  m_EditorClassIdentifier: ScriptableObjects::SO.UnitDataSO
-  name: Tank
-  unitType: 0
+  m_EditorClassIdentifier: ScriptableObjects::SO.EntityDataSO
+  definitionId: 1
+  entityName: Tank
+  prefab: {fileID: 8015442352750793990, guid: e1db6210824694097b33bf7e67f09b07, type: 3}
   behaviours:
-  - {fileID: 11400000, guid: 4dca3321e0e55460dac8845c6f4ea3f0, type: 2}
-  <Prefab>k__BackingField: {fileID: 8015442352750793990, guid: e1db6210824694097b33bf7e67f09b07, type: 3}
+  - {fileID: 11400000, guid: 7144e708f66fe4427987dfb6e2f51b03, type: 2}
+  - {fileID: 11400000, guid: 66f12259fa67247848afd18ebfcb91de, type: 2}

@@ -20,12 +20,10 @@ namespace Core
             DebugUtils.Message(this, "Initializing...");
             WorldCommands = new WorldCommands(_planet); 
             
-            //_unitFactory = new UnitFactory(_unitSystems, _unitManager);
             _entityFactory = new EntityFactory(_behaviourSystems);
             EntityCommands = new EntityCommands
                 (_entityFactory, _behaviourSystems.SelectionSystem, _behaviourSystems.LandUnitMovementSystem);
             
-            //UnitCommands = new UnitCommands(_unitFactory, _unitManager,  _unitSystems.MovementSystem);
             _owner = owner;
         }
 
@@ -34,7 +32,6 @@ namespace Core
             //Tick is exposed, but any unauthorised call throws exception
             if (!ReferenceEquals(_owner, owner))
                 throw new InvalidOperationException("Unauthorised Game.Tick() call!"); 
-            //_unitSystems.Tick(deltaTime);
             _behaviourSystems.Tick(deltaTime);
             _entityFactory.Tick();
         }

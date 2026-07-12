@@ -1,6 +1,6 @@
 using System;
 
-namespace Shared
+namespace Core.Structs
 {
     public struct Vector3Data
     {

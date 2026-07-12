@@ -21,9 +21,9 @@ namespace Systems.Views
         {
             _parent.position = Vector3Extensions.ToUnity(Entity.Position);
             
-            if(_behaviour.TargetCell == null) return;
+            if(_behaviour.NextCell == null) return;
             Vector3 up = _parent.position.normalized;
-            Vector3 dir = Vector3Extensions.ToUnity(_behaviour.TargetCell.Center - Entity.Position); 
+            Vector3 dir = Vector3Extensions.ToUnity(_behaviour.NextCell.Center - Entity.Position); 
             Quaternion targetRotation = Quaternion.LookRotation(dir, up);
             _parent.rotation = Quaternion.Slerp(
                 _parent.rotation,

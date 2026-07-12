@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: New Selection Behaviour SO
   m_EditorClassIdentifier: ScriptableObjects::SO.SelectionBehaviourSO
   behaviourView: {fileID: 0}
-  canMove: 0
+  canMove: 1

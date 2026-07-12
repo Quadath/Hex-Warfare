@@ -1,5 +1,5 @@
 using System;
-using Shared;
+using Core.Structs;
 
 namespace Core
 {

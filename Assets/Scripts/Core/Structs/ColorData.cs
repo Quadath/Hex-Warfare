@@ -1,4 +1,4 @@
-namespace Core
+namespace Core.Structs
 {
     public struct ColorData
     {

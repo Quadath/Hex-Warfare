@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: New Land Unit Movement SO
   m_EditorClassIdentifier: ScriptableObjects::SO.LandUnitMovementSO
   behaviourView: {fileID: 8339956705233239274, guid: 1733ffe92f6cb4c6e9b016b284c4ca66, type: 3}
-  baseSpeed: 0.3
+  baseSpeed: 0.1

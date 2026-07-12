@@ -2,9 +2,8 @@
     "name": "ScriptableObjects",
     "rootNamespace": "",
     "references": [
-        "Shared",
         "Core",
-        "Utilites",
+        "Utils",
         "UnityShared"
     ],
     "includePlatforms": [],

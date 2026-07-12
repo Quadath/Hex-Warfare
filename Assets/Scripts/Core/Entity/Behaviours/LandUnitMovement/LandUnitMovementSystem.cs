@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Shared;
+using Core.Structs;
 
 namespace Core.Behaviours
 {
@@ -8,7 +8,7 @@ namespace Core.Behaviours
     {
         internal override void Tick(float deltaTime)
         {
-            foreach (var pair in base._instances)
+            foreach (var pair in _instances)
             {
                 var entity = pair.Key;
                 var behaviour = pair.Value;
@@ -20,16 +20,11 @@ namespace Core.Behaviours
                 if (behaviour.Path != null && behaviour.CellIndex < behaviour.Path.Count)
                 {
                     Cell targetCell = behaviour.Path[behaviour.CellIndex];
-                    //UnitView references this
-                    //unit.ToLookAt = targetCell.Center; 
+                    behaviour.NextCell = targetCell;
                     DebugUtils.Line(entity.Position, targetCell.Center);
                         
                     if ((entity.Position - targetCell.Center).SqrMagnitude < 0.0001f)
-                    {
-                        behaviour.CellIndex++;
-                        entity.SetCell(targetCell);
-                        behaviour.TargetCell = targetCell;
-                    }
+                        behaviour.OnTargetCellReached(targetCell);
                     else
                     {
                         Vector3Data delta = targetCell.Center - entity.Position;
@@ -37,21 +32,16 @@ namespace Core.Behaviours
                         float step = deltaTime * behaviour.BaseSpeed;
 
                         if (distance <= Math.Pow(step, 2))
-                        {
-                            entity.SetPosition(targetCell.Center);
-                            entity.SetCell(targetCell);
-                            behaviour.CellIndex++;
-                        }
+                            behaviour.OnTargetCellReached(targetCell);
                         else
-                        {
                             entity.Move(delta.Normalized * step);
-                        }
                     }
                 }
                 else
                 {
                     behaviour.CellIndex = 0;
                     behaviour.TargetCell = null;
+                    behaviour.NextCell = null;
                     behaviour.Path = null;
                 }
             }

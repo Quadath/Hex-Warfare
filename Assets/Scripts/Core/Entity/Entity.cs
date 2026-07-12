@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using Shared;
+using Core.Structs;
 
 namespace Core
 {

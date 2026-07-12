@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
-using Shared;
 using Core;
+using Core.Structs;
 using Utils;
 using UnityEngine;
 

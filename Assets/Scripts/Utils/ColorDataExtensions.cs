@@ -1,5 +1,5 @@
 using UnityEngine;
-using Core;
+using Core.Structs;
 
 namespace Utils
 {
