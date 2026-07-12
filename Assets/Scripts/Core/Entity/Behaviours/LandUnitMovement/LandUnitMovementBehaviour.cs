@@ -21,10 +21,10 @@ namespace Core.Behaviours
 
         internal void OnTargetCellReached(Cell c)
         {
-            Owner.SetCell(c);
-            Owner.SetPosition(c.Center);
             CellIndex++;
             NextCell = null;
+            Owner.SetCell(c);
+            Owner.SetPosition(c.Center);
         }
     }
 }

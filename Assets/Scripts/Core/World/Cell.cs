@@ -8,19 +8,28 @@ namespace Core
     {
         //Messy
         public readonly Vector3Data Center;
-        private ColorData? _color;
-        public ColorData Color
-        {
-            get => _color ?? new ColorData(0, 0, 0, 1);
-            private set => _color = value;
-        }
-
-        public bool IsWater {get; internal set; }
-        public int? OccupiedBy { get; internal set; }
         public List<Vector3Data> Corners { get; }
         public List<Cell> Neighbors { get; } = new List<Cell>();
-        
         public List<Sector> Sectors { get; } = new List<Sector>();
+        public Entity Building { get; private set; }
+        
+
+        public int OccupiedBy { get; internal set; }
+        public bool IsWater {get; internal set; }
+        //DEBUG
+        private bool isHighlighted;
+        
+        public ColorData Color
+        {
+            get
+            {
+                if (isHighlighted) return Constants.HighlightedColor;
+                var substanceCol = IsWater ? Constants.WaterColor : Constants.GroundColor;
+                if (OccupiedBy == 0) return substanceCol;
+                var playerCol = Constants.PlayerColors[OccupiedBy];
+                return ColorData.Lerp(substanceCol, playerCol, .15f);
+            }
+        }
 
         internal Cell(Vector3Data center, List<Vector3Data> corners)
         {
@@ -32,25 +41,26 @@ namespace Core
             }
             Sectors.Add(new Sector(this, corners[Corners.Count - 1], corners[0]));
         }
-        public void SetColor(ColorData color)
-        {
-            if (_color != null) throw new InvalidOperationException();
-            Color = color;
-            foreach (var s in Sectors)
-            {
-                s.Color = color * 0.9f;
-            }
-        }
+        
+        internal void Occupy(int player) => OccupiedBy = player;
+        // public void SetColor(ColorData color)
+        // {
+        //     if (_color != null) throw new InvalidOperationException();
+        //     Color = color;
+        //     foreach (var s in Sectors)
+        //     {
+        //         s.Color = color * 0.9f;
+        //     }
+        // }
 
-        public void Highlight()
-        {
-            _color = new ColorData(1, 0, 0, 0);
-        }
+        public void Highlight() => isHighlighted = true;
 
         public class Sector
         {
             public Cell Parent { get; private set; }
-            public ColorData Color { get; internal set; } = new ColorData(0, 0, 0, 1);
+
+            public ColorData Color => Parent.Color * .9f;
+
             public Vector3Data Center {get; private set; }
 
             public Sector(Cell parent, Vector3Data p1, Vector3Data p2)
@@ -61,7 +71,7 @@ namespace Core
 
             public void Highlight()
             {
-                Color = new ColorData(1, 0, 0, 0);
+               // Color = Constants.HighlightedColor;
             }
         }
         
@@ -80,11 +90,6 @@ namespace Core
                 }
             }
             return sector;
-        }
-
-        internal void Occupy(int player)
-        {
-            
         }
     }
 }

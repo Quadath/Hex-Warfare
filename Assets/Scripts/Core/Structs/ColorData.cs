@@ -19,5 +19,13 @@ namespace Core.Structs
         {
             return new ColorData(a.R * m, a.G * m, a.B * m, a.A * m);
         }
+
+        public static ColorData Lerp(ColorData a, ColorData b, float t)
+        {
+            return new ColorData(a.R + (b.R - a.R) * t,
+                a.G + (b.G - a.G) * t,
+                a.B + (b.B - a.B) * t,
+                a.A + (b.A - a.A) * t);
+        }
     }
 }

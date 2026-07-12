@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core;
 using Core.Structs;
@@ -13,20 +14,29 @@ namespace Systems
         private float radius = 1f;
 
         private Planet _planet;
+        private MeshFilter _meshFilter;
+        private MeshCollider _meshCollider;
+        
+        private bool _initialised;
 
-        private Cell _startCell;
-        private Cell _endCell;
 
         public override void Init(Game game)
         {
             _planet = game.WorldCommands.GeneratePlanet(subdivisions, radius);
+            _initialised = true;
+            _meshFilter = GetComponent<MeshFilter>();
+            _meshCollider = GetComponent<MeshCollider>();
+        }
+        private void FixedUpdate()
+        {
+            if (!_initialised) return;
             Draw();
         }
         public void Draw()
         {
             var mesh = BuildMesh(_planet.Cells);
-            GetComponent<MeshFilter>().mesh = mesh;
-            GetComponent<MeshCollider>().sharedMesh = mesh;
+            _meshFilter.mesh = mesh;
+            _meshCollider.sharedMesh = mesh;
         }
 
         public Cell OnClicked(Vector3 clickPos)
