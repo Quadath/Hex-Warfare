@@ -13,7 +13,7 @@ namespace Core
         public Cell Cell { get; private set; }
         public Vector3Data Position { get; private set; }
         
-        private event Action<Unit> OnDestroyed;
+        private event Action<Entity> OnDestroyed;
         
         //Dictionary allows O(1) lookup and prevents behaviours from duplicating.
         private readonly Dictionary<Type, Behaviour> _behaviours = new();
@@ -54,8 +54,8 @@ namespace Core
         public Behaviour TryGetBehaviour(Type type) =>
             _behaviours.GetValueOrDefault(type);
         
-        public void AddOnDestroyedListener(Action<Unit> action) => OnDestroyed += action;
-        public void RemoveOnDestroyedListener(Action<Unit> action) => OnDestroyed -= action;
+        public void AddOnDestroyedListener(Action<Entity> action) => OnDestroyed += action;
+        public void RemoveOnDestroyedListener(Action<Entity> action) => OnDestroyed -= action;
 
         
         public void SetViewId(int viewId)

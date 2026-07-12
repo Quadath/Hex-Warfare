@@ -5,10 +5,6 @@ namespace Core
 {
     public sealed class Game
     {
-        private readonly UnitSystemsContainer _unitSystems = new();
-        private readonly UnitManager _unitManager = new();
-        private readonly UnitFactory _unitFactory;
-        
         private readonly BehaviourSystemsContainer _behaviourSystems = new();
         private readonly EntityFactory _entityFactory;
 
@@ -16,7 +12,6 @@ namespace Core
         
         private readonly Planet _planet = new();
         
-        public UnitCommands UnitCommands { get; }
         public WorldCommands WorldCommands { get; }
         public EntityCommands EntityCommands { get; }
 
