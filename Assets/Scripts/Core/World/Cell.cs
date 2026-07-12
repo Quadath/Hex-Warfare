@@ -81,5 +81,10 @@ namespace Core
             }
             return sector;
         }
+
+        internal void Occupy(int player)
+        {
+            
+        }
     }
 }

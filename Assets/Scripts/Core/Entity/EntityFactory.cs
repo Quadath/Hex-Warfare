@@ -53,7 +53,7 @@ namespace Core
                 EntityData data =  _entries[id];
                 if (data == null) throw new NullReferenceException();
                 
-                Entity entity = new Entity(data, spawn);
+                Entity entity = new Entity(data, spawn, request.ControlledBy);
                 foreach (var factory in data.BehaviourFactories)
                 {
                     Behaviour b = factory(entity, null);

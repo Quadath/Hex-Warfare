@@ -8,21 +8,49 @@ namespace Core
     {
         public readonly int Id;
         public readonly Cell Spawn;
-        public readonly Vector3Data spawnPos;
-        public readonly bool SelectOnSpawn = false;
+        public readonly bool SelectOnSpawn;
+        public readonly int ControlledBy;
         
 
-        public SpawnRequest(int id, Cell spawn, bool SelectOnSpawn = false)
+        public SpawnRequest(SpawnRequestBuilder builder)
+        {
+            Id = builder.Id;
+            Spawn = builder.Spawn;
+            SelectOnSpawn = builder.SelectOnSpawn;
+            ControlledBy = builder.ControlledBy;
+        }
+    }
+
+    public class SpawnRequestBuilder
+    {
+        internal int Id { get; }
+        internal Cell Spawn { get; }
+
+        internal bool SelectOnSpawn;
+        internal int ControlledBy;
+
+        public SpawnRequestBuilder(int id, Cell spawn)
         {
             Id = id;
             Spawn = spawn;
-            spawnPos = spawn.Center;
-            this.SelectOnSpawn = SelectOnSpawn;
         }
 
-        internal SpawnRequest(int id, Vector3Data spawn)
+        public SpawnRequestBuilder SelectAfterSpawned()
         {
-            throw new NotImplementedException();
+            SelectOnSpawn = true;
+            return this;
         }
+
+        public SpawnRequestBuilder ControlledByPlayer(int playerId)
+        {
+            ControlledBy = playerId;
+            return this;
+        }
+
+        public SpawnRequest Build()
+        {
+            return new SpawnRequest(this);
+        }
+    
     }
 }
