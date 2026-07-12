@@ -570,6 +570,8 @@ GameObject:
   - component: {fileID: 1986057972}
   - component: {fileID: 1986057971}
   - component: {fileID: 1986057969}
+  - component: {fileID: 1986057976}
+  - component: {fileID: 1986057975}
   - component: {fileID: 1986057973}
   - component: {fileID: 1986057974}
   m_Layer: 0
@@ -637,7 +639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Systems::Systems.GameBootstrap
   Systems:
   - {fileID: 1250522719}
-  - {fileID: 1986057971}
+  - {fileID: 1986057976}
 --- !u!114 &1986057973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,6 +664,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d1d5fa246944f09be8ba9ff411ab45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Systems::Systems.DebugDrawView
+--- !u!114 &1986057975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986057968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f39ef7e942349349de017ca43cf099e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Systems::Systems.EntityViewFactory
+  _registry: {fileID: 11400000, guid: 7c7bb56021c364426848080901c2e9a3, type: 2}
+--- !u!114 &1986057976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986057968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70dbd816b77c486191768ed82bf0fad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Systems::Systems.EntityFactoriesProvider
+  registry: {fileID: 11400000, guid: 7c7bb56021c364426848080901c2e9a3, type: 2}
+  PlanetView: {fileID: 1250522719}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

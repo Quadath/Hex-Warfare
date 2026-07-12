@@ -5,11 +5,11 @@ namespace Core
 {
     public static class DebugUtils
     {
-        public static event Action<DebugCommands.DebugCommand>? Command;
-
-        public static void Message(string source, string text, int? instanceId = null)
+        public static event Action<DebugCommands.DebugCommand> Command;
+        
+        public static void Message(Object sender, string text, int? instanceId = null)
         {
-            Command?.Invoke(new DebugCommands.Message(source, text, instanceId));
+            Command?.Invoke(new DebugCommands.Message(sender.GetType().Name, text, instanceId));
         }
 
         public static void Line(Vector3Data start, Vector3Data end)

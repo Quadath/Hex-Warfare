@@ -6,7 +6,8 @@ namespace Core
 {
     public class Cell
     {
-        public Vector3Data Center { get; private set; }
+        //Messy
+        public readonly Vector3Data Center;
         private ColorData? _color;
         public ColorData Color
         {
@@ -15,10 +16,11 @@ namespace Core
         }
 
         public bool IsWater {get; internal set; }
-        public List<Vector3Data> Corners { get; set; }
+        public int? OccupiedBy { get; internal set; }
+        public List<Vector3Data> Corners { get; }
         public List<Cell> Neighbors { get; } = new List<Cell>();
         
-        public List<Sector> Sectors { get; private set; } = new List<Sector>();
+        public List<Sector> Sectors { get; } = new List<Sector>();
 
         internal Cell(Vector3Data center, List<Vector3Data> corners)
         {

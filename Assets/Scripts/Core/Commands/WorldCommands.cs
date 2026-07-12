@@ -1,5 +1,8 @@
 namespace Core.Commands
 {
+    /*
+     * Classes of Core.Commands work as Core's API for Unity
+     */
     public class WorldCommands
     {
         private readonly Planet _planet;

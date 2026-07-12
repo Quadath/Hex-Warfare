@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Core.Commands
 {
     /*
-     * This class and workspace work as a transition layer between Core and Unity. 
+     * Classes of Core.Commands work as Core's API for Unity
      */
     public class UnitCommands
     {

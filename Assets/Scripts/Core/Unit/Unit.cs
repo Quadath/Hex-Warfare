@@ -9,12 +9,10 @@ namespace Core
     {
         public Cell Cell { get; private set; }
         public UnitTypes Type { get; }
+        public int? ViewInstanceId { get; private set; } //DEBUG
         public Vector3Data Position { get; internal set; }
         public Vector3Data ToLookAt { get; internal set; } //for UnityView, not Core!
-
-        public int? ViewInstanceId { get; private set; } //DEBUG
         private event Action<Unit> OnDeath; 
-        [CanBeNull] public List<Cell> Path {get; private set;}
 
         public void SetViewInstanceId(int? viewInstanceId)
         {
@@ -28,20 +26,15 @@ namespace Core
             Position = spawn.Center;
             ToLookAt = spawn.Neighbors[0].Center; //look at some cell on spawn
         }
-
-        public void SetPath(List<Cell> path)
-        {
-            Path = path;
-        }
         
-        public void AddOnDeathListener(Action<Unit> listener)
-        {
-            OnDeath += listener;
-        }
-        public void RemoveDeathListener(Action<Unit> listener)
-        {
-            OnDeath -= listener;
-        }
+        // public void AddOnDeathListener(Action<ITargetable> listener)
+        // {
+        //     OnDeath += listener;
+        // }
+        // public void RemoveOnDeathListener(Action<ITargetable> listener)
+        // {
+        //     OnDeath -= listener;
+        // }
 
         internal void SetCell(Cell cell)
         {
