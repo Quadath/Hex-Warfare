@@ -13,7 +13,7 @@ namespace Core
         private readonly BehaviourSystemsContainer _behaviourSystems;
         
         //Unity follows this event and creates corresponding view 
-        private event Action<Entity> OnEntityCreated; 
+        private event Action<Entity, SpawnRequest> OnEntityCreated; 
         
         /*Collect each request from Systems Tick() and execute after systems have been ticked. 
         It prevents collections from updating while iterating*/
@@ -38,7 +38,7 @@ namespace Core
             _entries = data.ToDictionary(d => d.DefinitionId, d => d);
         }
         
-        internal void AddOnEntityCreatedListener(Action<Entity> onEntityCreated) =>  OnEntityCreated += onEntityCreated;
+        internal void AddOnEntityCreatedListener(Action<Entity, SpawnRequest> onEntityCreated) =>  OnEntityCreated += onEntityCreated;
 
         internal void Tick() => SpawnQueued();
         
@@ -53,6 +53,7 @@ namespace Core
                 EntityData data =  _entries[id];
                 if (data == null) throw new NullReferenceException();
                 
+                
                 Entity entity = new Entity(data, spawn, request.ControlledBy);
                 foreach (var factory in data.BehaviourFactories)
                 {
@@ -60,9 +61,14 @@ namespace Core
                     entity.AddBehaviour(b);
                     _behaviourSystems.Register(entity, b);
                 }
-                if(request.SelectOnSpawn) _behaviourSystems.SelectionSystem.AddToSelection(entity); 
+                if(request.SelectOnSpawn) _behaviourSystems.SelectionSystem.AddToSelection(entity);
+                if (request.IsABuilding)
+                {
+                    request.Sector.Build(entity);
+                    entity.SetPosition(request.Sector.Center);
+                }
                 
-                OnEntityCreated?.Invoke(entity);
+                OnEntityCreated?.Invoke(entity, request);
                 DebugUtils.Message(this, "Firing the OnEntityCreated event");
             }
         }

@@ -18,7 +18,7 @@ namespace Systems
             GameBootstrap.Instance.Game.EntityCommands.SubscribeToOnEntityCreated(CreateView);
         }
 
-        private void CreateView(Entity entity)
+        private void CreateView(Entity entity, SpawnRequest request)
         {
             int id = entity.DefinitionId;
             EntityDataSO data = _data[id];

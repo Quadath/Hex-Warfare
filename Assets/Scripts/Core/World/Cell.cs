@@ -11,7 +11,6 @@ namespace Core
         public List<Vector3Data> Corners { get; }
         public List<Cell> Neighbors { get; } = new List<Cell>();
         public List<Sector> Sectors { get; } = new List<Sector>();
-        public Entity Building { get; private set; }
         
 
         public int OccupiedBy { get; internal set; }
@@ -57,18 +56,20 @@ namespace Core
 
         public class Sector
         {
-            public Cell Parent { get; private set; }
-
-            public ColorData Color => Parent.Color * .9f;
-
+            private Cell Parent { get; set; }
+            internal Entity Building { get; private set; } = null;
+            public ColorData Color => Parent.Color * .95f;
             public Vector3Data Center {get; private set; }
+            
 
-            public Sector(Cell parent, Vector3Data p1, Vector3Data p2)
+            internal Sector(Cell parent, Vector3Data p1, Vector3Data p2)
             {
                 Parent =  parent;
                 Center = (parent.Center + p1 + p2) / 3;
             }
-
+            
+            internal void Build(Entity building) => Building = building;
+            
             public void Highlight()
             {
                // Color = Constants.HighlightedColor;

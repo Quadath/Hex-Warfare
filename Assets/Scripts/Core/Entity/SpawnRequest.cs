@@ -6,10 +6,19 @@ namespace Core
     //This class is container for spawn request, it may contain initial orders for Entities
     public class SpawnRequest
     {
-        public readonly int Id;
-        public readonly Cell Spawn;
+        //COMMON
+        internal readonly int Id;
+        internal readonly Cell Spawn;
+        internal Vector3Data SpawnPosition;
+        internal readonly int ControlledBy;
+        
+        //BUILDING
+        public readonly bool IsABuilding;
+        public readonly Cell.Sector Sector;
+        
+        //ORDERS
         public readonly bool SelectOnSpawn;
-        public readonly int ControlledBy;
+        
         
 
         public SpawnRequest(SpawnRequestBuilder builder)
@@ -18,21 +27,42 @@ namespace Core
             Spawn = builder.Spawn;
             SelectOnSpawn = builder.SelectOnSpawn;
             ControlledBy = builder.ControlledBy;
+            IsABuilding =  builder.IsABuilding;
+            Sector = builder.Sector;
         }
     }
 
     public class SpawnRequestBuilder
     {
-        internal int Id { get; }
-        internal Cell Spawn { get; }
-
-        internal bool SelectOnSpawn;
+        //COMMON
+        internal readonly int Id;
+        internal readonly Cell Spawn;
+        internal readonly Vector3Data SpawnPosition;
         internal int ControlledBy;
+        //ORDERS
+        internal bool SelectOnSpawn;
 
-        public SpawnRequestBuilder(int id, Cell spawn)
+        //BUILDING
+        internal bool IsABuilding;
+        internal Cell.Sector Sector;
+        
+
+        public SpawnRequestBuilder(int id, Cell spawn = null)
         {
             Id = id;
             Spawn = spawn;
+        }
+        public SpawnRequestBuilder(int id, Vector3Data spawnPosition)
+        {
+            Id = id;
+            SpawnPosition = spawnPosition;
+        }
+
+        public SpawnRequestBuilder Building(Cell.Sector sector)
+        {
+            IsABuilding = true;
+            Sector = sector;
+            return this;
         }
 
         public SpawnRequestBuilder SelectAfterSpawned()

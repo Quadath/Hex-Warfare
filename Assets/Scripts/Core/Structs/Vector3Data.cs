@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Core.Structs
 {
@@ -67,6 +68,7 @@ namespace Core.Structs
         public static Vector3Data Right => new Vector3Data(1, 0, 0);
         public static Vector3Data Up => new Vector3Data(0, 1, 0);
         public static Vector3Data Forward => new Vector3Data(0, 0, 1);
+        public static Vector3Data Zero => new Vector3Data(0, 0, 0);
         
         public static Vector3Data operator +(Vector3Data a, Vector3Data b)
             => new Vector3Data(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
@@ -76,5 +78,9 @@ namespace Core.Structs
             => new Vector3Data(a.X * x, a.Y * x, a.Z * x);
         public static Vector3Data operator /(Vector3Data a, float x)
             => new Vector3Data(a.X / x, a.Y / x, a.Z / x);
+        public static bool operator == (Vector3Data a, Vector3Data b)
+            => Mathf.Approximately(a.X, b.X) && Mathf.Approximately(a.Y, b.Y) && Mathf.Approximately(a.Z, b.Z);
+
+        public static bool operator !=(Vector3Data a, Vector3Data b) => !(a == b);
     }
 }

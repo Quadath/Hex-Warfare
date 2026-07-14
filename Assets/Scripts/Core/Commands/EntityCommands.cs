@@ -27,11 +27,12 @@ namespace Core.Commands
         
         public void Spawn(SpawnRequest request)
         {
+            if (request.Sector is { Building: not null }) return;
             _factory.QueueSpawn(request);
         }
         
 
-        public void SubscribeToOnEntityCreated(Action<Entity> onEntityCreated) 
+        public void SubscribeToOnEntityCreated(Action<Entity, SpawnRequest> onEntityCreated) 
             => _factory.AddOnEntityCreatedListener(onEntityCreated);
         
         public void SelectUnit(Entity unit) => _selectionSystem.AddToSelection(unit);

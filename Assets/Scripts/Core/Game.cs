@@ -5,8 +5,9 @@ namespace Core
 {
     public sealed class Game
     {
-        private readonly BehaviourSystemsContainer _behaviourSystems = new();
+        private readonly BehaviourSystemsContainer _behaviourSystems;
         private readonly EntityFactory _entityFactory;
+        private readonly ResourceManager _resourceManager;
 
         private readonly object _owner;
         
@@ -18,6 +19,12 @@ namespace Core
         public Game(object owner)
         {
             DebugUtils.Message(this, "Initializing...");
+            _resourceManager = new ResourceManager();
+            Context ctx = new Context();
+            ctx.Register(_resourceManager);
+            
+            _behaviourSystems = new BehaviourSystemsContainer(ctx);
+            
             WorldCommands = new WorldCommands(_planet); 
             
             _entityFactory = new EntityFactory(_behaviourSystems);

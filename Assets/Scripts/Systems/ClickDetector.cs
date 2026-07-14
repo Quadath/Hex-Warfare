@@ -27,9 +27,21 @@ namespace Systems
 
                 if (Physics.Raycast(ray, out hit))
                 {
-                    MoveSelectedUnits(hit.point);
+                    Build(hit.point);
                 }
             }
+        }
+
+        private void Build(Vector3 point)
+        {
+            var cell = planetView.OnClicked(point);
+            var sector = cell.GetClosestSector(Vector3Extensions.ToCore(point));
+            GameBootstrap.Instance.Game.EntityCommands.Spawn(
+                new SpawnRequestBuilder(10, cell)
+                    .Building(sector)
+                    .ControlledByPlayer(1)
+                    .Build()
+                );
         }
 
         private void MoveSelectedUnits(Vector3 hit)
