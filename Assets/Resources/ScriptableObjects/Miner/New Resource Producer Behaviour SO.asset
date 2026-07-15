@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: New Resource Producer Behaviour SO
   m_EditorClassIdentifier: ScriptableObjects::SO.ResourceProducerBehaviourSO
   behaviourView: {fileID: 0}
-  products: []
+  products:
+  - Type: 0
+    Amount: 1
   ingridients: []
-  period: 0
+  period: 2

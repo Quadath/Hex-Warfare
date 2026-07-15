@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26d65b4247254ad8adad1902c976ed90, type: 3}
   m_Name: Miner
   m_EditorClassIdentifier: ScriptableObjects::SO.EntityDataSO
-  definitionId: 0
-  entityName: 
-  prefab: {fileID: 0}
-  behaviours: []
+  definitionId: 10
+  entityName: Miner
+  prefab: {fileID: 5117450511279756462, guid: cd83a2569fb1540e8aa4c17acc529543, type: 3}
+  behaviours:
+  - {fileID: 11400000, guid: cd507ef0b42ec4db999e5207cda173eb, type: 2}

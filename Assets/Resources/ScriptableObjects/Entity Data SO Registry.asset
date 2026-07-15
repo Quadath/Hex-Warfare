@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: ScriptableObjects::SO.EntityDataSORegistry
   entries:
   - {fileID: 11400000, guid: 25e99bbeded8a44f3aa49e19c57b3d6f, type: 2}
+  - {fileID: 11400000, guid: f5d977c3bb9974388a9377b999d3d4ce, type: 2}
