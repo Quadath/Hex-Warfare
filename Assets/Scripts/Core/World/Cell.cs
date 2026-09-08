@@ -68,7 +68,7 @@ namespace Core
                 Center = (parent.Center + p1 + p2) / 3;
             }
             
-            internal void Build(Entity building) => Building = building;
+            internal void SetBuilding(Entity building) => Building = building;
             
             public void Highlight()
             {

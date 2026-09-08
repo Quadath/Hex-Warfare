@@ -3,6 +3,10 @@ using Core.Structs;
 
 namespace Core.Behaviours
 {
+    /*
+     * A data container which is used for creation of corresponding behaviour.
+     * This prevents Unity from direct creating of Behaviour instances.
+     */
     public class ResourceProducerBehaviourConfiguration: IResourceProducerBehaviour
     {
         public List<ResourceInstance> Products { get; }

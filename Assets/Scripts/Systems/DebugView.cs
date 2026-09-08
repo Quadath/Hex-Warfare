@@ -5,7 +5,7 @@ using Utils;
 
 namespace Systems
 {
-    public class DebugDrawView : MonoBehaviour
+    public class DebugView : MonoBehaviour
     {
         private readonly Queue<DebugCommands.DebugCommand> _commands = new();
 

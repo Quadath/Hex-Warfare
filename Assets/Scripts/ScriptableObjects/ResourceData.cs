@@ -5,6 +5,7 @@ using Core.Structs;
 namespace SO
 {
     [Serializable]
+    //Used by scriptable objects.
     public struct ResourceData
     {
         public ResourceTypes Type;

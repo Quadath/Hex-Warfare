@@ -15,7 +15,7 @@ namespace SO
         public List<ResourceInstance> Products => products.Select(a => a.ToCore()).ToList();
         [SerializeField] private List<ResourceData> ingridients;
         public List<ResourceInstance> Ingridients => ingridients.Select(a => a.ToCore()).ToList();
-        [SerializeField] private float period;
+        [SerializeField] private float period; //every x seconds
         public float Period => period;
         public override Type BehaviourType { get; } = typeof(ResourceProducerBehaviourConfiguration);
 

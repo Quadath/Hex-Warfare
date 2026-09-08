@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Systems
 {
+    //Provides factories for entities to core.
     public class EntityFactoriesProvider: UnitySystem
     {
         [SerializeField] private EntityDataSORegistry registry;

@@ -4,6 +4,7 @@ using Core.Structs;
 
 namespace Core.Behaviours
 {
+    //Container of data. This data is used it Tick() of corresponding system.
     public class ResourceProducerBehaviour: Behaviour, IResourceProducerBehaviour
     {
         public List<ResourceInstance> Products { get; }

@@ -1,5 +1,6 @@
 namespace Core.Behaviours
 {
+    //Processes behaviour of entities with ResourceProducerBehaviour attached.
     internal class ResourceProducerSystem: BehaviourSystem<ResourceProducerBehaviour>
     {
         private readonly ResourceManager _resourceManager;

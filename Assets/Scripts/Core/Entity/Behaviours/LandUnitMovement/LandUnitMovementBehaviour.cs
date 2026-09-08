@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 
 namespace Core.Behaviours
 {
+    //Container of data. This data is used it Tick() of corresponding system.
     public class LandUnitMovementBehaviour: Behaviour, ILandUnitMovementBehaviour
     {
         public float BaseSpeed { get; }

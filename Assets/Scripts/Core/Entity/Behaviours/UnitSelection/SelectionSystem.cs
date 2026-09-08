@@ -3,6 +3,7 @@ using System.Linq;
 
 namespace Core.Behaviours
 {
+    //Allows to select any entities which have SelectionBehaviour attached.
     internal class SelectionSystem: BehaviourSystem<SelectionBehaviour>
     {
         private readonly List<Entity> _selectedEntities = new List<Entity>();

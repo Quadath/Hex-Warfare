@@ -7,6 +7,10 @@ using Utils;
 
 namespace Systems
 {
+    /*
+     * This class subscribes to creation of entities and spawns
+     * a prefab with an EntityView
+     */
     public class EntityViewFactory: MonoBehaviour
     {
         [SerializeField] private EntityDataSORegistry _registry;

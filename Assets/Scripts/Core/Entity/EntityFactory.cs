@@ -64,7 +64,7 @@ namespace Core
                 if(request.SelectOnSpawn) _behaviourSystems.SelectionSystem.AddToSelection(entity);
                 if (request.IsABuilding)
                 {
-                    request.Sector.Build(entity);
+                    request.Sector.SetBuilding(entity);
                     entity.SetPosition(request.Sector.Center);
                 }
                 

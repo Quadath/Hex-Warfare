@@ -6,6 +6,7 @@ using Utils;
 
 namespace Systems.Views
 {
+    //Displays the movement of an entity with LandUnitMovementBehaviour.
     public class LandUnitMovementBehaviourView: BehaviourView
     {
         private Transform _parent;

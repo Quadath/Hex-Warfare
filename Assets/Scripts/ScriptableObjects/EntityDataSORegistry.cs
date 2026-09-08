@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace SO
 {
+    //Holds ScriptableObjects every entity
     [CreateAssetMenu(menuName = "SO/EntityDataSORegistry")]
     public class EntityDataSORegistry: ScriptableObject
     {
