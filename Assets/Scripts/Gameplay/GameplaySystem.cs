@@ -9,12 +9,12 @@ namespace Gameplay
 
         public abstract void Tick();
         
-        public virtual void Select()
+        internal virtual void Select()
         {
             DebugUtils.Message(this, "Selected " + this.GetType().Name);
         }
 
-        public virtual void Deselect()
+        internal virtual void Deselect()
         {
             DebugUtils.Message(this, "Selected " + this.GetType().Name);
         }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Core;
 using UnityEngine;
 
 namespace Gameplay
@@ -12,6 +13,14 @@ namespace Gameplay
         private void Update()
         {
             selectedSystem.Tick();
+        }
+
+        internal void SetActiveSystem(GameplaySystem system)
+        {
+            DebugUtils.Message(this, "Selected system: " + system.GetType().Name);
+            selectedSystem.Deselect();
+            selectedSystem = system;
+            selectedSystem.Select();
         }
     }
 }

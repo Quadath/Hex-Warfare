@@ -5,7 +5,7 @@ namespace Core
     public static class Constants
     {
         internal static readonly ColorData GroundColor = new ColorData(.25f, .2f, .2f, 1);
-        internal static readonly ColorData WaterColor = new ColorData(.96f, .45f, .18f, 1);
+        internal static readonly ColorData WaterColor = new ColorData(.97f, .40f, .11f, 1);
 
         internal static readonly ColorData[] PlayerColors =
         {

@@ -1,13 +1,21 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraMovement : MonoBehaviour
 {
-    public Transform target;      // Drag your sphere here
-    public float distance = 13f;
-    public float rotationSpeed = 100f;
+    public Transform pivotTransform;
+    public float distance;
+    public float rotationSpeed;
+    public InputActionProperty scrollAction;
 
     private float yaw = 0f;
     private float pitch = 0f;
+    private float zoom = 1f;
+
+    void Start()
+    {
+        scrollAction.action.Enable();
+    }
 
     void Update()
     {
@@ -23,8 +31,19 @@ public class CameraMovement : MonoBehaviour
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
 
         Vector3 direction = rotation * new Vector3(0, 0, -distance);
+        
+        float z = scrollAction.action.ReadValue<float>();
+        if (z > 0 && zoom > -0.75f)
+        {
+            zoom -= 0.05f;
+        }
+        else if (z < 0 && zoom < 1f) 
+        {
+            zoom += 0.05f;
+        }
 
-        transform.position = target.position + direction;
-        transform.LookAt(target);
+        Vector3 targetPosition = pivotTransform.position + direction + direction.normalized * zoom;
+        transform.position = Vector3.Slerp(transform.position, targetPosition, Time.deltaTime);
+        transform.LookAt(pivotTransform);
     }
 }

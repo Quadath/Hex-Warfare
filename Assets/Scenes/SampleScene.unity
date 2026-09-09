@@ -536,6 +536,7 @@ GameObject:
   - component: {fileID: 1169717744}
   - component: {fileID: 1169717743}
   - component: {fileID: 1169717742}
+  - component: {fileID: 1169717745}
   m_Layer: 5
   m_Name: Build
   m_TagString: Untagged
@@ -607,13 +608,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1169717745}
+        m_TargetAssemblyTypeName: Gameplay.UI.GameplaySystemButton, Gameplay
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -657,6 +658,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169717740}
   m_CullTransparentMesh: 1
+--- !u!114 &1169717745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169717740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba94e086e5e94feb8ed145377a770f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gameplay::Gameplay.UI.GameplaySystemButton
+  gameplaySystemsManager: {fileID: 1986057978}
+  systemToSelect: {fileID: 0}
 --- !u!1 &1250522712
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,6 +811,7 @@ GameObject:
   - component: {fileID: 1345359996}
   - component: {fileID: 1345359995}
   - component: {fileID: 1345359994}
+  - component: {fileID: 1345359997}
   m_Layer: 5
   m_Name: Select
   m_TagString: Untagged
@@ -866,7 +882,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1345359995}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1345359997}
+        m_TargetAssemblyTypeName: Gameplay.UI.GameplaySystemButton, Gameplay
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1345359995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -905,6 +933,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1345359992}
   m_CullTransparentMesh: 1
+--- !u!114 &1345359997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345359992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba94e086e5e94feb8ed145377a770f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gameplay::Gameplay.UI.GameplaySystemButton
+  gameplaySystemsManager: {fileID: 1986057978}
+  systemToSelect: {fileID: 1986057977}
 --- !u!1 &1500756433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1371,11 +1413,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1986057970}
   - component: {fileID: 1986057972}
-  - component: {fileID: 1986057976}
-  - component: {fileID: 1986057975}
   - component: {fileID: 1986057969}
   - component: {fileID: 1986057978}
   - component: {fileID: 1986057977}
+  - component: {fileID: 1986057975}
+  - component: {fileID: 1986057976}
   - component: {fileID: 1986057974}
   m_Layer: 0
   m_Name: Systems
@@ -1391,7 +1433,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1986057968}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c3b90f9ea4854a46b0430af573ac633, type: 3}
   m_Name: 
@@ -1514,6 +1556,7 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: -2329923384571266099, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   dragThreshold: 20
+  planetView: {fileID: 1250522719}
 --- !u!114 &1986057978
 MonoBehaviour:
   m_ObjectHideFlags: 0
