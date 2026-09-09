@@ -303,9 +303,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec26156bb29143dc926bdc30d2fa890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gameplay::CameraMovement
-  target: {fileID: 1250522716}
+  pivotTransform: {fileID: 1250522716}
   distance: 2.2
   rotationSpeed: 30
+  scrollAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Scroll
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 7962864c-6c92-4a3d-82f5-88925ff18eeb
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -7991755676257216329, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!1 &813255246
 GameObject:
   m_ObjectHideFlags: 0

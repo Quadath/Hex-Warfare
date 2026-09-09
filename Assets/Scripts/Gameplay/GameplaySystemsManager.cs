@@ -5,9 +5,8 @@ using UnityEngine;
 
 namespace Gameplay
 {
-    public class GameplaySystemsManager: MonoBehaviour
+    public sealed class GameplaySystemsManager: MonoBehaviour
     {
-        [SerializeField] protected List<GameplaySystem> systems;
         [SerializeField] private GameplaySystem selectedSystem;
 
         private void Update()
