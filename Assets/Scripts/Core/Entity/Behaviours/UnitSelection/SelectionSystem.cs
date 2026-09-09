@@ -20,6 +20,12 @@ namespace Core.Behaviours
             var b = (SelectionBehaviour)entity.GetBehaviour(typeof(SelectionBehaviour));
             if (b.CanMove) _movingSelection.Add(entity);
         }
+
+        internal void AddToSelection(List<Entity> entities)
+        {
+            foreach (var e in entities)
+                AddToSelection(e);
+        }
         
         internal void ClearSelection()
         {

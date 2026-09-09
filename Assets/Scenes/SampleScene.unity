@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Order
+  m_text: 'Select
 
 '
   m_isRightToLeft: 0
@@ -797,7 +797,7 @@ GameObject:
   - component: {fileID: 1345359995}
   - component: {fileID: 1345359994}
   m_Layer: 5
-  m_Name: Order
+  m_Name: Select
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -950,6 +950,81 @@ Transform:
   - {fileID: 1919095060}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
+--- !u!1 &1681823264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1681823265}
+  - component: {fileID: 1681823267}
+  - component: {fileID: 1681823266}
+  m_Layer: 5
+  m_Name: Selection box
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1681823265
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681823264}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1856321596}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 5000, y: 0}
+  m_SizeDelta: {x: -8532, y: 926}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1681823266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681823264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.28063667, g: 0.25943398, b: 1, a: 0.392}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1681823267
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681823264}
+  m_CullTransparentMesh: 1
 --- !u!1 &1856321592
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,6 +1122,7 @@ RectTransform:
   m_Children:
   - {fileID: 1345359993}
   - {fileID: 1169717741}
+  - {fileID: 1681823265}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1298,6 +1374,8 @@ GameObject:
   - component: {fileID: 1986057976}
   - component: {fileID: 1986057975}
   - component: {fileID: 1986057969}
+  - component: {fileID: 1986057978}
+  - component: {fileID: 1986057977}
   - component: {fileID: 1986057974}
   m_Layer: 0
   m_Name: Systems
@@ -1313,7 +1391,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1986057968}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c3b90f9ea4854a46b0430af573ac633, type: 3}
   m_Name: 
@@ -1388,6 +1466,68 @@ MonoBehaviour:
   m_EditorClassIdentifier: Systems::Systems.EntityFactoriesProvider
   registry: {fileID: 11400000, guid: 7c7bb56021c364426848080901c2e9a3, type: 2}
   PlanetView: {fileID: 1250522719}
+--- !u!114 &1986057977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986057968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4b4c6cb8ba45f8887f512d8e73e4b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gameplay::Gameplay.EntitySelectionSystem
+  selectionBox: {fileID: 1681823265}
+  canvas: {fileID: 1856321595}
+  cam: {fileID: 2122733532875114398}
+  clickAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Click
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: acfa50ed-c007-4066-bb30-99e142e36f82
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: 90651b11-77b9-4aea-87bc-8aef80555cca
+        m_Path: 
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Click
+        m_Flags: 0
+      m_Flags: 0
+    m_Reference: {fileID: -615526636911292566, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  positionAction:
+    m_UseReference: 1
+    m_Action:
+      m_Name: Position
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 7bdb9bab-e000-4fb8-ad2a-8b475320de5f
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -2329923384571266099, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  dragThreshold: 20
+--- !u!114 &1986057978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986057968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 778c1e738a8845b09b470bead20e7059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Gameplay::Gameplay.GameplaySystemsManager
+  systems: []
+  selectedSystem: {fileID: 1986057977}
 --- !u!1001 &2092253353
 PrefabInstance:
   m_ObjectHideFlags: 0

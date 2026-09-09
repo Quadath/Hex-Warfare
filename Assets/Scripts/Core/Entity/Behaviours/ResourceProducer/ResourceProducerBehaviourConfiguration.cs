@@ -6,6 +6,7 @@ namespace Core.Behaviours
     /*
      * A data container which is used for creation of corresponding behaviour.
      * This prevents Unity from direct creating of Behaviour instances.
+     * It also helps to prevent Unity from providing runtime data.
      */
     public class ResourceProducerBehaviourConfiguration: IResourceProducerBehaviour
     {

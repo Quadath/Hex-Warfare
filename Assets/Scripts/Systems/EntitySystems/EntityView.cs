@@ -7,14 +7,14 @@ namespace Systems
 {
     public class EntityView:  MonoBehaviour
     {
-        private Entity _entity;
-        
+        public Entity Entity { get; private set; }
+
         public readonly List<BehaviourView> BehaviourViews = new();
 
         public void SetEntity(Entity entity)
         {
-            if(_entity != null) throw new InvalidOperationException("Entity is already set");
-            _entity = entity;
+            if(Entity != null) throw new InvalidOperationException("Entity is already set");
+            Entity = entity;
         }
 
         private void FixedUpdate()

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36e06d1a0e724df9b7f499dc4a86de36, type: 3}
   m_Name: New Selection Behaviour SO
   m_EditorClassIdentifier: ScriptableObjects::SO.SelectionBehaviourSO
-  behaviourView: {fileID: 0}
+  behaviourView: {fileID: 4030127510467445470, guid: ee82ca7bdfc4f4b49a739d859f1e91aa, type: 3}
   canMove: 1

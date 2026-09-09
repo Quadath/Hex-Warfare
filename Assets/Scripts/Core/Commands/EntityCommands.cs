@@ -35,7 +35,8 @@ namespace Core.Commands
         public void SubscribeToOnEntityCreated(Action<Entity, SpawnRequest> onEntityCreated) 
             => _factory.AddOnEntityCreatedListener(onEntityCreated);
         
-        public void SelectUnit(Entity unit) => _selectionSystem.AddToSelection(unit);
+        public void SelectEntity(Entity ent) => _selectionSystem.AddToSelection(ent);
+        public void SelectEntities(List<Entity> entities) => _selectionSystem.AddToSelection(entities);
         
         public void MoveTo(Entity entity, Cell target) => _landUnitMovementSystem.SetTarget(entity, target);
         

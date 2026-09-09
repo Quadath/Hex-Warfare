@@ -14,7 +14,8 @@ namespace SO
 
         public override Func<Entity, Context, Behaviour> BehaviourFactory()
         {
-            return (entity, ctx) => new SelectionBehaviour(entity, canMove, ctx);
+            var conf = new SelectionBehaviourConfiguration(canMove);
+            return (entity, ctx) => new SelectionBehaviour(entity, conf, ctx);
         }
     }
 }

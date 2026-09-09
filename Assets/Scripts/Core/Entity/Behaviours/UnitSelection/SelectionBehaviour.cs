@@ -1,14 +1,15 @@
 namespace Core.Behaviours
 {
-    public class SelectionBehaviour: Behaviour
+    public class SelectionBehaviour: Behaviour, ISelectionBehaviour
     {
-        internal readonly bool CanMove;
+        public bool CanMove { get; internal set; }
+        
         /*|||||||||
          * RUNTIME
          ||||||||*/
-        public SelectionBehaviour(Entity owner, bool canMove, Context ctx = null) : base(owner, ctx)
+        public SelectionBehaviour(Entity owner, ISelectionBehaviour conf, Context ctx = null) : base(owner, ctx)
         {
-            CanMove = canMove;
+            CanMove = conf.CanMove;
         }
     }
 }

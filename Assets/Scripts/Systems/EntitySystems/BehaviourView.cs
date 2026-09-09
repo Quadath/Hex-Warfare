@@ -12,7 +12,7 @@ namespace Systems
     {
         protected Behaviour Behaviour;
         protected EntityView View;
-        protected Entity Entity;
+        public Entity Entity { get; private set; }
 
         public void Init(Behaviour behaviour, EntityView view)
         {
