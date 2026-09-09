@@ -30,6 +30,7 @@ namespace Core.Behaviours
         internal void ClearSelection()
         {
             _selectedEntities.Clear();
+            _movingSelection.Clear();
         }
     }
 }

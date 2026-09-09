@@ -27,7 +27,8 @@ namespace Systems
 
                 if (Physics.Raycast(ray, out hit))
                 {
-                    Build(hit.point);
+                    //MoveSelectedUnits(hit.point);
+                    //Build(hit.point);
                 }
             }
         }

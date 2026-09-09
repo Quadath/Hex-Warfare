@@ -37,6 +37,7 @@ namespace Core.Commands
         
         public void SelectEntity(Entity ent) => _selectionSystem.AddToSelection(ent);
         public void SelectEntities(List<Entity> entities) => _selectionSystem.AddToSelection(entities);
+        public void ClearEntitySelection() => _selectionSystem.ClearSelection();
         
         public void MoveTo(Entity entity, Cell target) => _landUnitMovementSystem.SetTarget(entity, target);
         

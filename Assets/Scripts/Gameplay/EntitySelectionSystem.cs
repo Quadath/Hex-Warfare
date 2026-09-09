@@ -21,6 +21,9 @@ namespace Gameplay
 
         [Header("Settings")]
         public float dragThreshold = 20f; // pixels before we consider it a "drag"
+        
+        [Header("Misc")]
+        public PlanetView planetView;
 
 
         private Vector2 startPos;
@@ -72,6 +75,7 @@ namespace Gameplay
         
         void SelectEntities()
         {
+            GameBootstrap.Instance.Game.EntityCommands.ClearEntitySelection();
             Vector2 min = Vector2.Min(startScreenPos, endScreenPos);
             Vector2 max = Vector2.Max(startScreenPos, endScreenPos);
 
@@ -95,8 +99,6 @@ namespace Gameplay
                     // unit.SetSelected(false);
                 }
             }
-            
-            Debug.Log(entities.Count);
             List<Entity> entityCores = entities
                 .Select(view => view.Entity)
                 .ToList();
@@ -139,10 +141,17 @@ namespace Gameplay
                 if (isDragging)
                 {
                     SelectEntities();
+                    isDragging = false;
+                    selectionBox.gameObject.SetActive(false);
+                }
+                else
+                {
+                    RaycastHit hit;
+                    var ray = Camera.main.ScreenPointToRay(mousePos);
+                    if (Physics.Raycast(ray, out hit))
+                        GameBootstrap.Instance.Game.EntityCommands.MoveSelected(planetView.OnClicked(hit.point));
                 }
 
-                isDragging = false;
-                selectionBox.gameObject.SetActive(false);
             }
         }
     }
