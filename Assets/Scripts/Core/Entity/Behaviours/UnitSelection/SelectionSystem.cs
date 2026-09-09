@@ -18,6 +18,7 @@ namespace Core.Behaviours
                 DebugUtils.Message(this, "Entity has no UnitSelectionBehaviour attached!", entity.ViewId);
             _selectedEntities.Add(entity);
             var b = (SelectionBehaviour)entity.GetBehaviour(typeof(SelectionBehaviour));
+            b.Select();
             if (b.CanMove) _movingSelection.Add(entity);
         }
 
@@ -29,6 +30,11 @@ namespace Core.Behaviours
         
         internal void ClearSelection()
         {
+            foreach (var e in _selectedEntities)
+            {
+                var b = (SelectionBehaviour)e.GetBehaviour(typeof(SelectionBehaviour));
+                b.Deselect();
+            }
             _selectedEntities.Clear();
             _movingSelection.Clear();
         }

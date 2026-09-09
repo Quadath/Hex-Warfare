@@ -12,7 +12,7 @@ namespace Core
         
         private readonly BehaviourSystemsContainer _behaviourSystems;
         
-        //Unity follows this event and creates corresponding view 
+        //Unity follows this event and creates corresponding views
         private event Action<Entity, SpawnRequest> OnEntityCreated; 
         
         /*Collect each request from Systems Tick() and execute after systems have been ticked. 

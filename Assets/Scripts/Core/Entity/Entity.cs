@@ -5,6 +5,7 @@ using Core.Structs;
 
 namespace Core
 {
+    //The Core of the Core.
     public class Entity
     {
         public string Name { get; }

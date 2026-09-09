@@ -9,7 +9,7 @@ namespace Systems
 {
     /*
      * This class subscribes to creation of entities and spawns
-     * a prefab with an EntityView
+     * a prefab with an EntityView and corresponding BehaviourViews
      */
     public class EntityViewFactory: MonoBehaviour
     {
