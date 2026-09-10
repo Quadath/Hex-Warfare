@@ -11,9 +11,10 @@ namespace Core
         public List<Vector3Data> Corners { get; }
         public List<Cell> Neighbors { get; } = new List<Cell>();
         public List<Sector> Sectors { get; } = new List<Sector>();
-        
 
-        public int OccupiedBy { get; internal set; }
+
+        public int OccupiedBy { get; internal set; } = 0; 
+        public bool Unleashed { get; internal set; } = false;
         public bool IsWater {get; internal set; }
         //DEBUG
         private bool isHighlighted;
@@ -23,14 +24,14 @@ namespace Core
             get
             {
                 if (isHighlighted) return Constants.HighlightedColor;
+                if (!Unleashed) return Constants.HiddenCell;
                 var substanceCol = IsWater ? Constants.WaterColor : Constants.GroundColor;
-                if (OccupiedBy == 0) return substanceCol;
                 var playerCol = Constants.PlayerColors[OccupiedBy];
                 return ColorData.Lerp(substanceCol, playerCol, .15f);
             }
         }
 
-        internal Cell(Vector3Data center, List<Vector3Data> corners)
+        internal Cell(Vector3Data center, List<Vector3Data> corners) 
         {
             Center = center;
             Corners = corners;
@@ -41,16 +42,15 @@ namespace Core
             Sectors.Add(new Sector(this, corners[Corners.Count - 1], corners[0]));
         }
         
-        internal void Occupy(int player) => OccupiedBy = player;
-        // public void SetColor(ColorData color)
-        // {
-        //     if (_color != null) throw new InvalidOperationException();
-        //     Color = color;
-        //     foreach (var s in Sectors)
-        //     {
-        //         s.Color = color * 0.9f;
-        //     }
-        // }
+        public void Occupy(int player)  { //make internal later
+            OccupiedBy = player;
+            Unleashed = true;
+            foreach (var n in Neighbors)
+            {
+                n.Unleash();
+            }
+        }
+        internal void Unleash() => Unleashed = true;
 
         public void Highlight() => isHighlighted = true;
 

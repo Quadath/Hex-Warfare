@@ -6,6 +6,7 @@ namespace Core
     {
         internal static readonly ColorData GroundColor = new ColorData(.25f, .2f, .2f, 1);
         internal static readonly ColorData WaterColor = new ColorData(.97f, .40f, .11f, 1);
+        internal static readonly ColorData HiddenCell = new ColorData(.05f, .03f, .03f, 1);
 
         internal static readonly ColorData[] PlayerColors =
         {
