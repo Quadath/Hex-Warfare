@@ -28,6 +28,8 @@ namespace Gameplay
         private void Build(Vector3 point)
         {
             var cell = planetView.OnClicked(point);
+            if (cell.IsWater) return;
+            if (cell.OccupiedBy != 1) return;
             var sector = cell.GetClosestSector(Vector3Extensions.ToCore(point));
             GameBootstrap.Instance.Game.EntityCommands.Spawn(
                 new SpawnRequestBuilder(10, cell)
