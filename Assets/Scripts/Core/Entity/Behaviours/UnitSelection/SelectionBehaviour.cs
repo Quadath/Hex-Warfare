@@ -11,7 +11,8 @@ namespace Core.Behaviours
          ||||||||*/
         internal event Action OnSelected;
         internal event Action OnDeselected;
-        public SelectionBehaviour(Entity owner, ISelectionBehaviour conf, Context ctx = null) : base(owner, ctx)
+        //Context contains things a Behaviour may need (e.g. another Behaviour)
+        public SelectionBehaviour(Entity owner, ISelectionBehaviour conf, Context ctx = null) : base(owner)
         {
             CanMove = conf.CanMove;
         }

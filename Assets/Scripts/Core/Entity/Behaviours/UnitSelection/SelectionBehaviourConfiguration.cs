@@ -13,5 +13,8 @@ namespace Core.Behaviours
         {
             CanMove = canMove;
         }
+
+        public SelectionBehaviour Factory(Entity entity, Context ctx) 
+            => new SelectionBehaviour(entity, this, ctx);
     }
 }

@@ -10,11 +10,11 @@ namespace Core.Behaviours
         public float Period { get; }
         public float Cooldown { get; internal set; }
         
-        public ResourceProducerBehaviour(Entity owner, IResourceProducerBehaviour data, Context ctx = null): base(owner, ctx)
+        internal ResourceProducerBehaviour(Entity owner, IResourceProducerBehaviour config, Context ctx = null): base(owner)
         {
-            Products = data.Products;
-            Period = data.Period;
-            Ingridients = data.Ingridients;
+            Products = config.Products;
+            Period = config.Period;
+            Ingridients = config.Ingridients;
             Cooldown = Period;
         }
     }

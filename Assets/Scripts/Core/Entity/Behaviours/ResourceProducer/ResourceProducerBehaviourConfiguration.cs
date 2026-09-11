@@ -20,5 +20,8 @@ namespace Core.Behaviours
             Period =  period;
             Ingridients = ingridients;
         }
+
+        public ResourceProducerBehaviour Factory(Entity entity, Context ctx)
+            => new ResourceProducerBehaviour(entity, this, ctx);
     }
 }

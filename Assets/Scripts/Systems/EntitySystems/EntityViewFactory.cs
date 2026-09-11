@@ -19,10 +19,10 @@ namespace Systems
         void Start()
         {
             _data = _registry.Entries.ToDictionary(so => so.DefinitionId, so => so);
-            GameBootstrap.Instance.Game.EntityCommands.SubscribeToOnEntityCreated(CreateView);
+            GameBootstrap.Instance.Game.EntityCommands.SubscribeToOnEntityCreated(CreateViews);
         }
 
-        private void CreateView(Entity entity, SpawnRequest request)
+        private void CreateViews(Entity entity, SpawnRequest request)
         {
             int id = entity.DefinitionId;
             EntityDataSO data = _data[id];

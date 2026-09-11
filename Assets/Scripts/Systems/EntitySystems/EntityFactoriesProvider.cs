@@ -19,6 +19,7 @@ namespace Systems
             game.EntityCommands.ProvideFactories
                 (registry.Entries.Select(s => s.EntityDataFactory()).ToList());
 
+            //Hard-coded spawn
             var cell = PlanetView.OnClicked(new Vector3(0.3f, 0.2f, -1));
             cell.Occupy(1);
             game.EntityCommands.Spawn(

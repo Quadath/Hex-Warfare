@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 
 namespace Core.Behaviours
 {
-    //Container of data. This data is used it Tick() of corresponding system.
+    //Container of data. This data is used in Tick() of corresponding system.
     public class LandUnitMovementBehaviour: Behaviour, ILandUnitMovementBehaviour
     {
         public float BaseSpeed { get; }
@@ -15,9 +15,9 @@ namespace Core.Behaviours
         [CanBeNull] public List<Cell> Path { get; internal set; }
         internal int CellIndex { get; set; } = 0;
         
-        public LandUnitMovementBehaviour(Entity owner, float baseSpeed, Context ctx = null): base(owner, ctx)
+        public LandUnitMovementBehaviour(Entity owner, ILandUnitMovementBehaviour config, Context ctx = null): base(owner)
         {
-            BaseSpeed = baseSpeed;
+            BaseSpeed = config.BaseSpeed;
         }
 
         internal void OnTargetCellReached(Cell c)

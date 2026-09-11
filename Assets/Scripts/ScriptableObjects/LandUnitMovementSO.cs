@@ -16,7 +16,8 @@ namespace SO
 
         public override Func<Entity, Context, Behaviour> BehaviourFactory()
         {
-            return (entity, ctx) => new LandUnitMovementBehaviour(entity, baseSpeed, ctx); //avoid using creating Behaviour instance directly, use Configurations instead
+            var config = new LandUnitMovementBehaviourConfiguration(BaseSpeed);
+            return config.Factory;
         }
     }
 }

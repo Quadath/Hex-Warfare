@@ -21,8 +21,8 @@ namespace SO
 
         public override Func<Entity, Context, Behaviour> BehaviourFactory()
         {
-            var conf = new ResourceProducerBehaviourConfiguration(Products, period, Ingridients);
-            return (entity, ctx) => new ResourceProducerBehaviour(entity, conf, ctx);
+            var config = new ResourceProducerBehaviourConfiguration(Products, period, Ingridients);
+            return config.Factory;
         }
     }
 }
