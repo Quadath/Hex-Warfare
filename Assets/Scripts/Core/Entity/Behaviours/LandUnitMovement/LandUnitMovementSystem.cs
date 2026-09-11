@@ -39,7 +39,8 @@ namespace Core.Behaviours
                 }
                 else
                 {
-                    behaviour.CellIndex = 0;
+                    //Cell 0 is the current cell
+                    behaviour.CellIndex = 1;
                     behaviour.TargetCell = null;
                     behaviour.NextCell = null;
                     behaviour.Path = null;

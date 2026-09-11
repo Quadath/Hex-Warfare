@@ -12,12 +12,20 @@ namespace Core
         public List<Cell> Neighbors { get; } = new List<Cell>();
         public List<Sector> Sectors { get; } = new List<Sector>();
 
-
+        
         public int OccupiedBy { get; internal set; } = 0; 
         public bool IsWater {get; internal set; }
+        
         private bool Unleashed { get; set; } = false;
+        private event Action<Entity> EntityEntered;
+        private event Action<Entity> EntityExited;
+        
+        
 
         internal readonly int ID;
+        private readonly int _totalCells;
+        private readonly int[] _visited = new int[700];
+        private int _visitVersion;
         //DEBUG
         private bool isHighlighted;
         
@@ -32,7 +40,17 @@ namespace Core
                 return ColorData.Lerp(substanceCol, playerCol, .15f);
             }
         }
-
+        
+        public void Occupy(int player)  { //make internal later
+            OccupiedBy = player;
+            Unleashed = true;
+            foreach (var n in Neighbors)
+            {
+                n.Unleash();
+            }
+        }
+        public void Highlight() => isHighlighted = true;
+        
         internal Cell(Vector3Data center, List<Vector3Data> corners, int id) 
         {
             Center = center;
@@ -44,18 +62,57 @@ namespace Core
             Sectors.Add(new Sector(this, corners[Corners.Count - 1], corners[0]));
             ID = id;
         }
-        
-        public void Occupy(int player)  { //make internal later
-            OccupiedBy = player;
-            Unleashed = true;
-            foreach (var n in Neighbors)
-            {
-                n.Unleash();
-            }
-        }
-        internal void Unleash() => Unleashed = true;
 
-        public void Highlight() => isHighlighted = true;
+        internal void Enter(Entity entity)
+        {
+            DebugUtils.Message(this, "Cell " + ID + " has been entered");
+            EntityEntered?.Invoke(entity);
+        }
+
+        internal void Exit(Entity entity)
+        {
+            DebugUtils.Message(this, "Cell " + ID + " has been exited");
+            EntityExited?.Invoke(entity);
+        }
+        internal void AddEntityEnteredListener(Action<Entity> action) => EntityEntered += action;
+        internal void AddEntityExitedListener(Action<Entity> action) => EntityExited += action;
+        internal void RemoveEntityEnteredListener(Action<Entity> action) => EntityEntered -= action;
+        internal void RemoveEntityExitedListener(Action<Entity> action) => EntityExited -= action;
+        
+        private void Unleash() => Unleashed = true;
+        
+        public List<Cell> GetCellsInRange(Cell start, int depth)
+        {
+            _visitVersion++;
+
+            var result = new List<Cell>();
+            var frontier = new List<Cell> { start };
+
+            _visited[start.ID] = _visitVersion;
+
+            for (int d = 0; d < depth; d++)
+            {
+                var nextFrontier = new List<Cell>();
+                foreach (var cell in frontier)
+                {
+                    foreach (var neighbor in cell.Neighbors)
+                    {
+                        // Already visited during THIS search?
+                        if (_visited[neighbor.ID] == _visitVersion)
+                            continue;
+
+                        // Mark as visited
+                        _visited[neighbor.ID] = _visitVersion;
+
+                        result.Add(neighbor);
+                        nextFrontier.Add(neighbor);
+                    }
+                }
+                frontier = nextFrontier;
+            }
+
+            return result;
+        }
 
         public class Sector
         {

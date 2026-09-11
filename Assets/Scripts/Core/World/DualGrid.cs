@@ -75,12 +75,7 @@ namespace Core
                     TryAdd(cells, cells[i], cells[t.c]);
                 }
             }
-
-            foreach (var c in cells)
-            {
-                DebugUtils.Message("DualGrid", "" + c.ID);
-            }
-            DebugUtils.Message("DualGrid", "DualGrid");
+            DebugUtils.Message("DualGrid", "The world has " + cells.Count + " cells.");
             return cells;
         }
 
