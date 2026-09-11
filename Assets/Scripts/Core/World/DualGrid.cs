@@ -59,12 +59,12 @@ namespace Core
                 }
                 center /= corners.Count;
                 corners = SortCorners(center, corners); 
-                Cell cell = new Cell(center, corners);
+                Cell cell = new Cell(center, corners, v);
 
                 cells.Add(cell);
             }
             
-            //Assigning heighbors to cells
+            //Assigning neighbors to cells
             for (int i = 0; i < cells.Count; i++)
             {
                 foreach (var ti in vToT[i])
@@ -76,6 +76,11 @@ namespace Core
                 }
             }
 
+            foreach (var c in cells)
+            {
+                DebugUtils.Message("DualGrid", "" + c.ID);
+            }
+            DebugUtils.Message("DualGrid", "DualGrid");
             return cells;
         }
 

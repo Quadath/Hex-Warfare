@@ -14,8 +14,10 @@ namespace Core
 
 
         public int OccupiedBy { get; internal set; } = 0; 
-        public bool Unleashed { get; internal set; } = false;
         public bool IsWater {get; internal set; }
+        private bool Unleashed { get; set; } = false;
+
+        internal readonly int ID;
         //DEBUG
         private bool isHighlighted;
         
@@ -31,7 +33,7 @@ namespace Core
             }
         }
 
-        internal Cell(Vector3Data center, List<Vector3Data> corners) 
+        internal Cell(Vector3Data center, List<Vector3Data> corners, int id) 
         {
             Center = center;
             Corners = corners;
@@ -40,6 +42,7 @@ namespace Core
                 Sectors.Add(new Sector(this, corners[c - 1], corners[c]));
             }
             Sectors.Add(new Sector(this, corners[Corners.Count - 1], corners[0]));
+            ID = id;
         }
         
         public void Occupy(int player)  { //make internal later

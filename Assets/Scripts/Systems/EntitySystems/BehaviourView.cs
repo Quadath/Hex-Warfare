@@ -5,7 +5,7 @@ using Behaviour = Core.Behaviour;
 namespace Systems
 {
     /*
-     * This class is used to display visuals of a behaviour.
+     * This base class is used to display visuals of a behaviour.
      * Like rotation of a turret
      */
     public abstract class BehaviourView: MonoBehaviour

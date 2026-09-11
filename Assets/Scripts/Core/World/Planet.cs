@@ -10,6 +10,7 @@ namespace Core
         public void Generate(int subdivisions, float radius)
         {
             var (vertices, triangles) = Icosphere.CreateIcosphere(subdivisions, radius);
+            DebugUtils.Message(this, "Generating planet...");
             Cells = DualGrid.Generate(vertices, triangles, radius);
             DualGrid.GenerateWater(Cells);
         }

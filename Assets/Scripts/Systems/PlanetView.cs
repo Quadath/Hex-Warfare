@@ -18,14 +18,15 @@ namespace Systems
         private MeshCollider _meshCollider;
         
         private bool _initialised;
+        [SerializeField] private bool displayGizmos;
 
 
         public override void Init(Game game)
         {
             _planet = game.WorldCommands.GeneratePlanet(subdivisions, radius);
-            _initialised = true;
             _meshFilter = GetComponent<MeshFilter>();
             _meshCollider = GetComponent<MeshCollider>();
+            _initialised = true;
         }
         private void FixedUpdate()
         {
@@ -53,8 +54,6 @@ namespace Systems
             //Draw();
             return c;
         }
-        
-        //private static Color[] _colors = new Color[6] { Color.red, Color.green, Color.blue, Color.yellow, Color.purple, Color.aquamarine };
         
         private static Mesh BuildMesh(List<Cell> cells)
         {
@@ -102,6 +101,7 @@ namespace Systems
 
         private void OnDrawGizmos()
         {
+            if (!displayGizmos) return;
             if (_planet == null) return;
             if( _planet.Cells == null ) return;
             foreach (Cell cell in _planet.Cells)

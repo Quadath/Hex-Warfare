@@ -16,5 +16,6 @@ MonoBehaviour:
   entityName: Tank
   prefab: {fileID: 8015442352750793990, guid: e1db6210824694097b33bf7e67f09b07, type: 3}
   behaviours:
+  - {fileID: 11400000, guid: 86bb50db908604234a18f25071e3b765, type: 2}
   - {fileID: 11400000, guid: 7144e708f66fe4427987dfb6e2f51b03, type: 2}
   - {fileID: 11400000, guid: 66f12259fa67247848afd18ebfcb91de, type: 2}

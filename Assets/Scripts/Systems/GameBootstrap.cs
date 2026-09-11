@@ -12,7 +12,7 @@ namespace Systems
 
         public Game Game { get; private set; }
 
-        void Awake()
+        void OnEnable()
         {
             Instance = this;
             Game = new Game(this);

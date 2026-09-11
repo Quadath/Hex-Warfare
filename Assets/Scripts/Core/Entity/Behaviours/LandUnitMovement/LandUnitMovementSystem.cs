@@ -52,6 +52,7 @@ namespace Core.Behaviours
             LandUnitMovementBehaviour b = _instances.GetValueOrDefault(entity);
             if (b == null) return;
             DebugUtils.Message(this, "New target set", entity.ViewId);
+            DebugUtils.Sphere(targetCell.Center, 0.01f, 1f);
             b.TargetCell = targetCell;
         }
     }
