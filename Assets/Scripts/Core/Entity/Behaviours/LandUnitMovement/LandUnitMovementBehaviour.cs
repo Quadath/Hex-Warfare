@@ -7,9 +7,8 @@ namespace Core.Behaviours
     public class LandUnitMovementBehaviour: Behaviour, ILandUnitMovementBehaviour
     {
         public float BaseSpeed { get; }
-        /*|||||||||
-         * RUNTIME
-         ||||||||*/
+        
+        //RUNTIME
         public Cell TargetCell {get; internal set; }
         public Cell NextCell { get; internal set; }
         [CanBeNull] public List<Cell> Path { get; internal set; }

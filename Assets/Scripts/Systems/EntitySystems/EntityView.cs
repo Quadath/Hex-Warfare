@@ -15,6 +15,7 @@ namespace Systems
         {
             if(Entity != null) throw new InvalidOperationException("Entity is already set");
             Entity = entity;
+            Entity.AddOnDestroyedListener((e) => Destroy(gameObject));
         }
 
         private void FixedUpdate()

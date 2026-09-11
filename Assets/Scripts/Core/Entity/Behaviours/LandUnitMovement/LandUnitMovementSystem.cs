@@ -49,9 +49,9 @@ namespace Core.Behaviours
 
         internal void SetTarget(Entity entity, Cell targetCell)
         {
-            DebugUtils.Message(this, "New target set", entity.ViewId);
             LandUnitMovementBehaviour b = _instances.GetValueOrDefault(entity);
             if (b == null) return;
+            DebugUtils.Message(this, "New target set", entity.ViewId);
             b.TargetCell = targetCell;
         }
     }

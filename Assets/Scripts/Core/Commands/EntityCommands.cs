@@ -43,8 +43,9 @@ namespace Core.Commands
         
         public void MoveSelected(Cell target)
         {
-            foreach (Entity e in _selectionSystem.MovingSelection)
+            foreach (Entity e in _selectionSystem.SelectedEntities)
             {
+                
                 _landUnitMovementSystem.SetTarget(e, target);
             }
         }

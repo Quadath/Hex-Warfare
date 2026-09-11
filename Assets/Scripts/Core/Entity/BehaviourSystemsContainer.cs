@@ -7,6 +7,7 @@ namespace Core
     //This class holds every BehaviourSystem and ticks them in a certain order
     internal sealed class BehaviourSystemsContainer
     {
+        internal readonly HealthBehaviourSystem HealthBehaviourSystem = new();
         internal readonly ResourceProducerSystem ResourceProducerSystem;
         internal readonly SelectionSystem SelectionSystem = new();
         internal readonly LandUnitMovementSystem LandUnitMovementSystem = new();
@@ -17,6 +18,7 @@ namespace Core
             var resourceManager = ctx.Resolve<ResourceManager>();
             ResourceProducerSystem = new ResourceProducerSystem(resourceManager);
             
+            RegisterSystem(HealthBehaviourSystem);
             RegisterSystem(ResourceProducerSystem);
             RegisterSystem(SelectionSystem);
             RegisterSystem(LandUnitMovementSystem);
@@ -25,6 +27,7 @@ namespace Core
 
         internal void Tick(float deltaTime)
         {
+            HealthBehaviourSystem.Tick(deltaTime); //Has no logic
             ResourceProducerSystem.Tick(deltaTime);
             SelectionSystem.Tick(deltaTime); //Has no logic
             LandUnitMovementSystem.Tick(deltaTime);

@@ -48,7 +48,8 @@ namespace Core
         
         internal void Destroy()
         {
-            throw new NotImplementedException();
+            _behaviours.Clear();
+            OnDestroyed?.Invoke(this);
         }
         
         public Behaviour GetBehaviour(Type type)

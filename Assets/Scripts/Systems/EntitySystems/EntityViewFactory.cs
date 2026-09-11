@@ -29,6 +29,7 @@ namespace Systems
             GameObject prefab = data.Prefab;
             var gameObj = Instantiate(prefab, Vector3Extensions.ToUnity(entity.Position), Quaternion.identity);
             var view = gameObj.AddComponent<EntityView>();
+            view.SetEntity(entity);
             foreach (EntityBehaviourDataSO behaviourDataSo in data.Behaviours)
             {
                 if (!behaviourDataSo.BehaviourView) continue;
@@ -37,7 +38,6 @@ namespace Systems
                 view.BehaviourViews.Add(behaviourView);
             }
             entity.SetViewId(view.GetEntityId());
-            view.SetEntity(entity);
         }
     }
 }

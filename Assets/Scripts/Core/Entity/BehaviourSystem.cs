@@ -11,11 +11,19 @@ namespace Core
         internal virtual void Register(Entity entity, TBehaviour behaviour)
         {
             _instances.Add(entity, behaviour);
+            //Instantly subscribe to entity's death
+            entity.AddOnDestroyedListener(HandleEntityDeath);
         }
 
-        internal virtual void Unregister(Entity entity)
+        protected virtual void Unregister(Entity entity)
         {
             _instances.Remove(entity);
+        }
+
+        private void HandleEntityDeath(Entity entity)
+        {
+            Unregister(entity);
+            entity.RemoveOnDestroyedListener(HandleEntityDeath);
         }
     }
 }

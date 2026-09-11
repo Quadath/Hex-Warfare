@@ -7,19 +7,17 @@ namespace Core.Behaviours
     internal class SelectionSystem: BehaviourSystem<SelectionBehaviour>
     {
         private readonly List<Entity> _selectedEntities = new List<Entity>();
-        private readonly List<Entity> _movingSelection = new List<Entity>();
         internal IReadOnlyList<Entity> SelectedEntities => _selectedEntities.ToList();
-        internal IReadOnlyList<Entity> MovingSelection => _movingSelection.ToList();
         internal override void Tick(float deltaTime) {}
 
         internal void AddToSelection(Entity entity)
         {
             if (entity.TryGetBehaviour(typeof(SelectionBehaviour)) == null)
-                DebugUtils.Message(this, "Entity has no UnitSelectionBehaviour attached!", entity.ViewId);
+                DebugUtils.Message(this, "Entity has no SelectionBehaviour attached!", entity.ViewId);
             _selectedEntities.Add(entity);
             var b = (SelectionBehaviour)entity.GetBehaviour(typeof(SelectionBehaviour));
+            b.Owner.AddOnDestroyedListener(HandleEntityDeath);
             b.Select();
-            if (b.CanMove) _movingSelection.Add(entity);
         }
 
         internal void AddToSelection(List<Entity> entities)
@@ -33,10 +31,16 @@ namespace Core.Behaviours
             foreach (var e in _selectedEntities)
             {
                 var b = (SelectionBehaviour)e.GetBehaviour(typeof(SelectionBehaviour));
+                b.Owner.RemoveOnDestroyedListener(HandleEntityDeath);
                 b.Deselect();
             }
             _selectedEntities.Clear();
-            _movingSelection.Clear();
+        }
+
+        private void HandleEntityDeath(Entity entity)
+        {
+            _selectedEntities.Remove(entity);
+            entity.RemoveOnDestroyedListener(HandleEntityDeath);
         }
     }
 }
