@@ -34,9 +34,10 @@ namespace Systems
             {
                 if (!behaviourDataSo.BehaviourView) continue;
                 BehaviourView behaviourView = Instantiate(behaviourDataSo.BehaviourView, gameObj.transform).GetComponent<BehaviourView>();
-                behaviourView.Init(entity.GetBehaviour(behaviourDataSo.BehaviourType), view);
                 view.BehaviourViews.Add(behaviourView);
+                behaviourView.Init(entity.GetBehaviour(behaviourDataSo.BehaviourType), view);
             }
+            view.Init();
             entity.SetViewId(view.GetEntityId());
         }
     }

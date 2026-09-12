@@ -67,10 +67,9 @@ namespace Core
                     request.Sector.SetBuilding(entity);
                     entity.SetPosition(request.Sector.Center);
                 }
-                
-                OnEntityCreated?.Invoke(entity, request);
                 entity.Init();
                 DebugUtils.Message(this, "Firing the OnEntityCreated event");
+                OnEntityCreated?.Invoke(entity, request);
             }
         }
     }

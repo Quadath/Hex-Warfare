@@ -5,11 +5,12 @@ using UnityEngine;
 
 namespace Systems
 {
-    public class EntityView:  MonoBehaviour
+    public class EntityView: MonoBehaviour
     {
         public Entity Entity { get; private set; }
 
         public readonly List<BehaviourView> BehaviourViews = new();
+        private bool Initialized;
 
         public void SetEntity(Entity entity)
         {
@@ -18,8 +19,15 @@ namespace Systems
             Entity.AddOnDestroyedListener((e) => Destroy(gameObject));
         }
 
+        public void Init()
+        {
+            Initialized = true;
+            
+        }
+
         private void FixedUpdate()
         {
+            if(!Initialized) return;
             BehaviourViews.ForEach(behaviourView => behaviourView.Tick()); 
         }
     }

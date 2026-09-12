@@ -42,6 +42,7 @@ namespace Core
             }
         }
         
+        //Only LandUnitMovementBehaviour is able to Occupy for now
         public void Occupy(int player)  { //make internal later
             OccupiedBy = player;
             Unleashed = true;

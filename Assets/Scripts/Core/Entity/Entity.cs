@@ -46,7 +46,6 @@ namespace Core
             Cell = cell;
             oldCell.Exit(this);
             OnCellChanged?.Invoke(cell);
-            cell.Occupy(ControlledBy); //Move somewhere, not all entities will be able to occupy cells
             cell.Enter(this);
         }
 

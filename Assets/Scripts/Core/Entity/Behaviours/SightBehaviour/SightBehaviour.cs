@@ -7,7 +7,7 @@ namespace Core.Behaviours
     {
         public int Range { get; }
         private readonly HashSet<Cell> _watchedCells = new();
-        private HashSet<Entity> _entitiesInSight = new();
+        private readonly HashSet<Entity> _entitiesInSight = new();
         internal SightBehaviour(Entity owner, ISightBehaviour config, Context ctx = null) : base(owner)
         {
             Range = config.Range;
@@ -59,7 +59,7 @@ namespace Core.Behaviours
             }
             foreach (var c1 in _watchedCells)
             {
-                DebugUtils.Sphere(c1.Center, 0.01f, 5f);
+                DebugUtils.Sphere(c1.Center, 0.01f, 1.5f);
             }
             DebugUtils.Message(this, "SightZone updated", Owner.ViewId);
             //DebugUtils.Message(this, "Watching " + _watchedCells.Count + " cells");

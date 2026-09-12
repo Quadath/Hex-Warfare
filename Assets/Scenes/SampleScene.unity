@@ -789,6 +789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Icosphere
   subdivisions: 3
+  displayGizmos: 0
 --- !u!64 &1250522720
 MeshCollider:
   m_ObjectHideFlags: 0

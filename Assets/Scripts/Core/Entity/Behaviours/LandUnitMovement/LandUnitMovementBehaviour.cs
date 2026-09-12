@@ -20,12 +20,18 @@ namespace Core.Behaviours
             BaseSpeed = config.BaseSpeed;
         }
 
+        internal override void Init()
+        {
+            Owner.Cell.Occupy(Owner.ControlledBy);
+        }
+
         internal void OnTargetCellReached(Cell c)
         {
             CellIndex++;
             NextCell = null;
             Owner.Cell.Exit(Owner);
             Owner.SetCell(c);
+            Owner.Cell.Occupy(Owner.ControlledBy);
             Owner.SetPosition(c.Center);
         }
 
