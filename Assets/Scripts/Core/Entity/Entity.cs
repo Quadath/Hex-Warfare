@@ -16,6 +16,7 @@ namespace Core
         public int ControlledBy { get; }
         
         private event Action<Entity> OnDestroyed;
+        private event Action<Cell> OnCellChanged;
         
         //Dictionary allows O(1) lookup and prevents behaviours from duplicating.
         private readonly Dictionary<Type, Behaviour> _behaviours = new();
@@ -28,12 +29,25 @@ namespace Core
             Position = spawn.Center;
             ControlledBy = controlledBy;
         }
+
+        internal void Init()
+        {
+            Cell.Enter(this);
+            foreach (var pair in _behaviours)
+            {
+                pair.Value.Init();
+            }
+        }
         
         internal void SetPosition(Vector3Data position) => Position = position;
         internal void SetCell(Cell cell)
         {
+            var oldCell = Cell;
             Cell = cell;
-            cell.Occupy(ControlledBy);
+            oldCell.Exit(this);
+            OnCellChanged?.Invoke(cell);
+            cell.Occupy(ControlledBy); //Move somewhere, not all entities will be able to occupy cells
+            cell.Enter(this);
         }
 
         internal void AddBehaviour(Behaviour behaviour)
@@ -64,6 +78,8 @@ namespace Core
         
         public void AddOnDestroyedListener(Action<Entity> action) => OnDestroyed += action;
         public void RemoveOnDestroyedListener(Action<Entity> action) => OnDestroyed -= action;
+        internal void AddOnCellChangedListener(Action<Cell> action) => OnCellChanged += action;
+        internal void RemoveOnCellChangedListener(Action<Cell> action) => OnCellChanged -= action;
 
         
         public void SetViewId(int viewId)

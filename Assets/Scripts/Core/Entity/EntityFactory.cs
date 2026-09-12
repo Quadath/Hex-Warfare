@@ -69,6 +69,7 @@ namespace Core
                 }
                 
                 OnEntityCreated?.Invoke(entity, request);
+                entity.Init();
                 DebugUtils.Message(this, "Firing the OnEntityCreated event");
             }
         }

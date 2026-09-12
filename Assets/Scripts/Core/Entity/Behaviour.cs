@@ -8,5 +8,7 @@ namespace Core
         {
             Owner = owner;
         }
+
+        internal virtual void Init() {}
     }
 }

@@ -13,12 +13,11 @@ namespace Core.Behaviours
         //Used by the view
         public Cell NextCell { get; internal set; }
         [CanBeNull] public List<Cell> Path { get; internal set; }
-        internal int CellIndex { get; set; } = 1;
+        internal int CellIndex { get; private set; } = 1;
         
         public LandUnitMovementBehaviour(Entity owner, ILandUnitMovementBehaviour config, Context ctx = null): base(owner)
         {
             BaseSpeed = config.BaseSpeed;
-            owner.Cell.Enter(Owner);
         }
 
         internal void OnTargetCellReached(Cell c)
@@ -28,7 +27,14 @@ namespace Core.Behaviours
             Owner.Cell.Exit(Owner);
             Owner.SetCell(c);
             Owner.SetPosition(c.Center);
-            c.Enter(Owner);
+        }
+
+        internal void EndMovement()
+        {
+            CellIndex = 1;
+            TargetCell = null;
+            NextCell = null;
+            Path = null;
         }
     }
 }

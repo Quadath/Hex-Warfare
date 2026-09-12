@@ -38,13 +38,7 @@ namespace Core.Behaviours
                     }
                 }
                 else
-                {
-                    //Cell 0 is the current cell
-                    behaviour.CellIndex = 1;
-                    behaviour.TargetCell = null;
-                    behaviour.NextCell = null;
-                    behaviour.Path = null;
-                }
+                    behaviour.EndMovement();
             }
         }
 
@@ -54,6 +48,7 @@ namespace Core.Behaviours
             if (b == null) return;
             DebugUtils.Message(this, "New target set", entity.ViewId);
             DebugUtils.Sphere(targetCell.Center, 0.01f, 1f);
+            b.EndMovement();
             b.TargetCell = targetCell;
         }
     }

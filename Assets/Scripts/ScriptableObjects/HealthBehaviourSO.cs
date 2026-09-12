@@ -19,6 +19,5 @@ namespace SO
             var config = new HealthBehaviourConfiguration(maxHealth);
             return config.Factory;
         }
-        
     }
 }

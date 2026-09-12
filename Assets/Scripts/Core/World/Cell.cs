@@ -15,6 +15,7 @@ namespace Core
         
         public int OccupiedBy { get; internal set; } = 0; 
         public bool IsWater {get; internal set; }
+        internal List<Entity> entities = new List<Entity>();
         
         private bool Unleashed { get; set; } = false;
         private event Action<Entity> EntityEntered;
@@ -44,9 +45,9 @@ namespace Core
         public void Occupy(int player)  { //make internal later
             OccupiedBy = player;
             Unleashed = true;
-            foreach (var n in Neighbors)
+            foreach(var c in GetCellsInRange(this, 2))
             {
-                n.Unleash();
+                c.Unleash();
             }
         }
         public void Highlight() => isHighlighted = true;
@@ -65,13 +66,15 @@ namespace Core
 
         internal void Enter(Entity entity)
         {
-            DebugUtils.Message(this, "Cell " + ID + " has been entered");
+            //DebugUtils.Message(this, "Cell " + ID + " has been entered");
+            entities.Add(entity);
             EntityEntered?.Invoke(entity);
         }
 
         internal void Exit(Entity entity)
         {
-            DebugUtils.Message(this, "Cell " + ID + " has been exited");
+            //DebugUtils.Message(this, "Cell " + ID + " has been exited");
+            entities.Remove(entity);
             EntityExited?.Invoke(entity);
         }
         internal void AddEntityEnteredListener(Action<Entity> action) => EntityEntered += action;

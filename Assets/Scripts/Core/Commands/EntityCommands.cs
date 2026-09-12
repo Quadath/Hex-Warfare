@@ -45,7 +45,6 @@ namespace Core.Commands
         {
             foreach (Entity e in _selectionSystem.SelectedEntities)
             {
-                
                 _landUnitMovementSystem.SetTarget(e, target);
             }
         }

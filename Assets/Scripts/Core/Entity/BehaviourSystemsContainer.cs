@@ -7,10 +7,12 @@ namespace Core
     //This class holds every BehaviourSystem and ticks them in a certain order
     internal sealed class BehaviourSystemsContainer
     {
-        internal readonly HealthBehaviourSystem HealthBehaviourSystem = new();
+        internal readonly LandUnitMovementSystem LandUnitMovementSystem = new();
         internal readonly ResourceProducerSystem ResourceProducerSystem;
         internal readonly SelectionSystem SelectionSystem = new();
-        internal readonly LandUnitMovementSystem LandUnitMovementSystem = new();
+        internal readonly HealthBehaviourSystem HealthBehaviourSystem = new();
+        internal readonly SightBehaviourSystem SightBehaviourSystem = new();
+        
         private readonly Dictionary<Type, Action<Entity, Behaviour>> _registry = new();
 
         internal BehaviourSystemsContainer(Context ctx)
@@ -18,19 +20,21 @@ namespace Core
             var resourceManager = ctx.Resolve<ResourceManager>();
             ResourceProducerSystem = new ResourceProducerSystem(resourceManager);
             
-            RegisterSystem(HealthBehaviourSystem);
+            RegisterSystem(LandUnitMovementSystem);
             RegisterSystem(ResourceProducerSystem);
             RegisterSystem(SelectionSystem);
-            RegisterSystem(LandUnitMovementSystem);
+            RegisterSystem(HealthBehaviourSystem);
+            RegisterSystem(SightBehaviourSystem);
         }
         
 
         internal void Tick(float deltaTime)
         {
-            HealthBehaviourSystem.Tick(deltaTime); //Has no logic
-            ResourceProducerSystem.Tick(deltaTime);
-            SelectionSystem.Tick(deltaTime); //Has no logic
             LandUnitMovementSystem.Tick(deltaTime);
+            //HealthBehaviourSystem.Tick(deltaTime); //Has no logic
+            ResourceProducerSystem.Tick(deltaTime);
+            //SelectionSystem.Tick(deltaTime); //Has no logic
+            //SightBehaviourSystem.Tick(deltaTime); //Has no logic
         }
         
         internal void Register(Entity entity, Behaviour behaviour)
@@ -41,7 +45,7 @@ namespace Core
 
         internal void Unregister(Behaviour behaviour)
         {
-            throw new NotImplementedException();
+            //Registers unregister behaviours
         }
         //Generic helper
         private void RegisterSystem<TBehaviour>(BehaviourSystem<TBehaviour> system)
