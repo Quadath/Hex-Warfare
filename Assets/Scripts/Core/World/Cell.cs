@@ -18,12 +18,13 @@ namespace Core
         internal List<Entity> entities = new List<Entity>();
         
         private bool Unleashed { get; set; } = false;
+        private bool Observed { get; set; } = false;
         private event Action<Entity> EntityEntered;
         private event Action<Entity> EntityExited;
         
         
 
-        internal readonly int ID;
+        public readonly int ID;
         private readonly int _totalCells;
         private readonly int[] _visited = new int[700];
         private int _visitVersion;
@@ -35,10 +36,12 @@ namespace Core
             get
             {
                 if (isHighlighted) return Constants.HighlightedColor;
-                if (!Unleashed) return Constants.HiddenCell;
+                if (!Unleashed) return Constants.UndiscoveredCell;
                 var substanceCol = IsWater ? Constants.WaterColor : Constants.GroundColor;
                 var playerCol = Constants.PlayerColors[OccupiedBy];
-                return ColorData.Lerp(substanceCol, playerCol, .15f);
+                var lerp = ColorData.Lerp(substanceCol, playerCol, .15f);
+                if (!Observed) lerp *= Constants.HiddenCellColorMultiplier;
+                return lerp;
             }
         }
         
@@ -78,12 +81,25 @@ namespace Core
             entities.Remove(entity);
             EntityExited?.Invoke(entity);
         }
-        internal void AddEntityEnteredListener(Action<Entity> action) => EntityEntered += action;
+        internal void AddEntityEnteredListener(Action<Entity> action)
+        {
+            EntityEntered += action;
+            Observed = true;
+        }
+
         internal void AddEntityExitedListener(Action<Entity> action) => EntityExited += action;
-        internal void RemoveEntityEnteredListener(Action<Entity> action) => EntityEntered -= action;
+
+        internal void RemoveEntityEnteredListener(Action<Entity> action)
+        {
+            EntityEntered -= action;
+            DebugUtils.Message(this, " has " + EntityEntered?.GetInvocationList().Length + " listeners.", ID);
+            if (EntityEntered == null && entities.Count == 0) Hide();
+        }
+
         internal void RemoveEntityExitedListener(Action<Entity> action) => EntityExited -= action;
         
         private void Unleash() => Unleashed = true;
+        private void Hide() =>  Observed = false;
         
         public List<Cell> GetCellsInRange(Cell start, int depth)
         {

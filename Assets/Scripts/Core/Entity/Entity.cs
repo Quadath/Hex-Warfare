@@ -45,8 +45,8 @@ namespace Core
             var oldCell = Cell;
             Cell = cell;
             oldCell.Exit(this);
-            OnCellChanged?.Invoke(cell);
             cell.Enter(this);
+            OnCellChanged?.Invoke(cell);
         }
 
         internal void AddBehaviour(Behaviour behaviour)

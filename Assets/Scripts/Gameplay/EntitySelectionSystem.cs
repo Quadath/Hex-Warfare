@@ -83,6 +83,7 @@ namespace Gameplay
             
             foreach (var view in FindObjectsOfType<SelectableView>())
             {
+                if (view.Entity.ControlledBy != 1) continue;
                 Vector3 screenPos = cam.WorldToScreenPoint(view.transform.position);
                 if (screenPos.z > 0 &&
                     screenPos.x > min.x && screenPos.x < max.x &&

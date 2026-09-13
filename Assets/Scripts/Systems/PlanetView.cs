@@ -1,6 +1,5 @@
-using System;
 using System.Collections.Generic;
-using Core;
+using Core; 
 using Core.Structs;
 using Utils;
 using UnityEngine;
@@ -18,6 +17,7 @@ namespace Systems
         private MeshCollider _meshCollider;
         
         private bool _initialised;
+        [SerializeField] private CellIdView _cellIdView;
         [SerializeField] private bool displayGizmos;
 
 
@@ -32,6 +32,8 @@ namespace Systems
         {
             if (!_initialised) return;
             Draw();
+            if(Input.GetKeyDown(KeyCode.I)) 
+                _cellIdView.DisplayCells(_planet.Cells);
         }
         public void Draw()
         {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,6 +15,7 @@ namespace Core.Behaviours
         {
             if (entity.TryGetBehaviour(typeof(SelectionBehaviour)) == null)
                 DebugUtils.Message(this, "Entity has no SelectionBehaviour attached!", entity.ViewId);
+            if (entity.ControlledBy != 1) throw new InvalidOperationException("Can't select hostile entities!");
             _selectedEntities.Add(entity);
             var b = (SelectionBehaviour)entity.GetBehaviour(typeof(SelectionBehaviour));
             b.Owner.AddOnDestroyedListener(HandleEntityDeath);
